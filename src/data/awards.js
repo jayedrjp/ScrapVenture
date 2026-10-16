@@ -1,5 +1,12 @@
 const awards = [
   {
+    "img": "assets/awards/5.jpg",
+    "title": "International Award — CIRDAP Innovation Challenge 2026",
+    "date": "July 2026",
+    "desc": "Won the International Award at the CIRDAP International Rural Development Innovation Challenge 2026, presented by Mirza Fakhrul Islam Alamgir.",
+    "tag": "International Rural Development"
+  },
+  {
     "img": "assets/awards/1.jpg",
     "title": "Official Recycling Partner — University Activation Programme 2025",
     "date": "August 2025",
@@ -26,13 +33,6 @@ const awards = [
     "date": "June 2026",
     "desc": "Recognized at the National Innovation Challenge, powered by the DEIED Project, BHTPA, held at Dhaka University.",
     "tag": "DEIED Project · BHTPA"
-  },
-  {
-    "img": "assets/awards/5.jpg",
-    "title": "International Award — CIRDAP Innovation Challenge 2026",
-    "date": "July 2026",
-    "desc": "Won the International Award at the CIRDAP International Rural Development Innovation Challenge 2026, presented by Mirza Fakhrul Islam Alamgir.",
-    "tag": "International Rural Development"
   },
   {
     "img": "assets/awards/6.jpg",

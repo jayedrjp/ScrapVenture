@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowIcon } from './icons.jsx';
 import Reveal from './Reveal.jsx';
+import './HowItWorks.css';
 
 const STEPS = [
   {

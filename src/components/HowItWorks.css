@@ -1,0 +1,49 @@
+/* How It Works Component Layout - Pinned Spacing */
+.how-sticky-frame {
+  padding-top: clamp(145px, 17vh, 205px) !important;
+}
+
+.how-head {
+  margin-bottom: 26px !important;
+}
+
+.how-timeline-wrap {
+  margin-top: 48px !important;
+}
+
+.how-col--top {
+  margin-top: 24px !important;
+}
+
+.how-col--bottom {
+  margin-top: 104px !important;
+}
+
+.how-cta-row {
+  margin-top: 36px !important;
+}
+
+@media (max-height: 850px) and (min-width: 821px) {
+  .how-sticky-frame {
+    padding-top: clamp(115px, 13.5vh, 140px) !important;
+  }
+  .how-timeline-wrap {
+    margin-top: 32px !important;
+  }
+  .how-cta-row {
+    margin-top: 28px !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .how-sticky-frame {
+    padding-top: clamp(110px, 12vh, 140px) !important;
+  }
+  .how-timeline-wrap {
+    margin-top: 28px !important;
+  }
+  .how-cta-row {
+    margin-top: 26px !important;
+  }
+}
+

@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowIcon, DownloadIcon } from './icons.jsx';
+import { ArrowIcon, DownloadIcon, UserIcon, ChevronDownIcon, TruckIcon } from './icons.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
 
 const HOME_LINKS = [
   ['#top', 'Home'],
@@ -134,7 +135,29 @@ const VARIANTS = {
 export default function Navbar({ variant, scrolled }) {
   const v = VARIANTS[variant] || VARIANTS.home;
   const [open, setOpen] = useState(false);
+  const [isLoginDropdownOpen, setIsLoginDropdownOpen] = useState(false);
+  const loginDropdownRef = useRef(null);
+  const { currentUser, isLoggedIn, isCollector } = useAuth();
   const closeMenu = () => setOpen(false);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (loginDropdownRef.current && !loginDropdownRef.current.contains(e.target)) {
+        setIsLoginDropdownOpen(false);
+      }
+    };
+    const handleEscape = (e) => {
+      if (e.key === 'Escape') setIsLoginDropdownOpen(false);
+    };
+    if (isLoginDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleEscape);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isLoginDropdownOpen]);
 
   return (
     <>
@@ -177,12 +200,57 @@ export default function Navbar({ variant, scrolled }) {
               <DownloadIcon size={16} />
               <span>Download App</span>
             </a>
-            <Link
-              to="/book-pickup"
-              className="btn btn-solid"
-            >
-              Book a Pickup <ArrowIcon />
-            </Link>
+
+            {isLoggedIn ? (
+              <Link
+                to={isCollector ? '/collector/dashboard' : '/dashboard'}
+                className="nav-profile-btn"
+                title={currentUser?.name ? `${currentUser.name} (Dashboard)` : 'My Dashboard'}
+                aria-label="My Dashboard Profile"
+              >
+                <UserIcon size={21} strokeWidth="2.4" />
+              </Link>
+            ) : (
+              <div className="nav-login-dropdown-wrapper" ref={loginDropdownRef}>
+                <button
+                  type="button"
+                  className={`btn btn-solid nav-login-btn ${isLoginDropdownOpen ? 'active' : ''}`}
+                  onClick={() => setIsLoginDropdownOpen(!isLoginDropdownOpen)}
+                  aria-expanded={isLoginDropdownOpen}
+                  aria-haspopup="true"
+                  aria-label="Login options"
+                >
+                  <span>Login</span>
+                  <ChevronDownIcon size={14} className={`nav-login-chevron ${isLoginDropdownOpen ? 'rotate' : ''}`} />
+                </button>
+
+                {isLoginDropdownOpen && (
+                  <div className="nav-login-dropdown-menu">
+                    <Link
+                      to="/login"
+                      className="nav-login-dropdown-item"
+                      onClick={() => setIsLoginDropdownOpen(false)}
+                    >
+                      <span className="nav-login-item-icon">
+                        <UserIcon size={16} />
+                      </span>
+                      <span className="nav-login-item-text">User Login</span>
+                    </Link>
+                    <Link
+                      to="/collector/login"
+                      className="nav-login-dropdown-item"
+                      onClick={() => setIsLoginDropdownOpen(false)}
+                    >
+                      <span className="nav-login-item-icon">
+                        <TruckIcon size={16} />
+                      </span>
+                      <span className="nav-login-item-text">Collector Login</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            )}
+
             <button
               className={'burger' + (open ? ' open' : '')}
               id="burgerBtn"
@@ -235,13 +303,37 @@ export default function Navbar({ variant, scrolled }) {
           <DownloadIcon size={18} />
           <span>Download App</span>
         </a>
-        <Link
-          to="/book-pickup"
-          className="btn btn-solid"
-          onClick={closeMenu}
-        >
-          Book a Pickup →
-        </Link>
+
+        {isLoggedIn ? (
+          <Link
+            to={isCollector ? '/collector/dashboard' : '/dashboard'}
+            className="btn btn-solid"
+            onClick={closeMenu}
+            style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}
+          >
+            <UserIcon size={18} />
+            <span>Dashboard ({currentUser?.name?.split(' ')[0] || 'My Account'})</span>
+          </Link>
+        ) : (
+          <div className="mobile-login-options">
+            <Link
+              to="/login"
+              className="btn btn-solid mobile-login-btn"
+              onClick={closeMenu}
+            >
+              <UserIcon size={16} />
+              <span>User Login</span>
+            </Link>
+            <Link
+              to="/collector/login"
+              className="btn btn-outline mobile-login-btn"
+              onClick={closeMenu}
+            >
+              <TruckIcon size={16} />
+              <span>Collector Login</span>
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );

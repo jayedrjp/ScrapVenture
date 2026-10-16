@@ -1,4 +1,4 @@
-const team = [
+export const leadersAndAdvisors = [
   {
     id: 'founder-ceo',
     name: 'Motaleb Hossain Emon',
@@ -106,4 +106,23 @@ const team = [
   }
 ];
 
+export const innovatorsAndCreators = [
+  {
+    id: 'fullstack-dev-sazzad',
+    name: 'Sazzad M Rahman',
+    rank: 'Full Stack Developer',
+    image: '/assets/team/developer-sazzad-rahman.jpg?v=4',
+    desc: 'CSE student at UITS and passionate full-stack developer, building scalable web systems and modern digital platforms for ScrapVenture.',
+    socialSide: 'right',
+    socials: {
+      facebook: 'https://facebook.com',
+      twitter: 'https://twitter.com',
+      linkedin: 'https://linkedin.com',
+      github: 'https://github.com',
+      portfolio: 'https://scrapventure.xyz'
+    }
+  }
+];
+
+const team = [...leadersAndAdvisors, ...innovatorsAndCreators];
 export default team;

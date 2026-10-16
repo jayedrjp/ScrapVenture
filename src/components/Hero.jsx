@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import HeroAvatars from './HeroAvatars.jsx';
 import { ArrowIcon } from './icons.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
 
 function useCountUp(endValue, duration = 1600, decimals = 0, delay = 0, triggerRef = null) {
   const [count, setCount] = useState(0);
@@ -75,6 +76,8 @@ function useCountUp(endValue, duration = 1600, decimals = 0, delay = 0, triggerR
 }
 
 export default function Hero() {
+  const { currentUser } = useAuth();
+  const isCollector = currentUser?.role === 'collector';
   const heroStatsRef = useRef(null);
   const customersCount = useCountUp(10000, 1800, 0, 400);
   const ratingCount = useCountUp(4.8, 1600, 1, 950, heroStatsRef);
@@ -105,13 +108,15 @@ export default function Hero() {
             Book a Pickup{' '}
             <ArrowIcon />
           </Link>
-          <Link
-            to="/become-a-collector"
-            className="btn btn-outline btn-glass hero-btn-collector"
-          >
-            Become a Collector{' '}
-            <ArrowIcon />
-          </Link>
+          {!isCollector && (
+            <Link
+              to="/become-a-collector"
+              className="btn btn-outline btn-glass hero-btn-collector"
+            >
+              Become a Collector{' '}
+              <ArrowIcon />
+            </Link>
+          )}
         </div>
         <div className="hero-stats" ref={heroStatsRef}>
           <div className="hero-stat">
