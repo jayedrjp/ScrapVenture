@@ -25,6 +25,7 @@ import AdminBlogs from './pages/admin/AdminBlogs.jsx';
 import AdminAwards from './pages/admin/AdminAwards.jsx';
 import AdminCampaigns from './pages/admin/AdminCampaigns.jsx';
 import AdminSettings from './pages/admin/AdminSettings.jsx';
+import ActiveCampaignPopup from './components/ActiveCampaignPopup.jsx';
 
 // User & Collector Auth System
 import { AuthProvider } from './context/AuthContext.jsx';
@@ -67,6 +68,7 @@ export default function App() {
   return (
     <AuthProvider>
       <AdminAuthProvider>
+        <ActiveCampaignPopup />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/index.html" element={<Home />} />
@@ -99,6 +101,10 @@ export default function App() {
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/dashboard.html" element={<UserDashboard />} />
           <Route path="/user/dashboard" element={<UserDashboard />} />
+          <Route path="/dashboard/pickups" element={<UserDashboard />} />
+          <Route path="/dashboard/selling-history" element={<UserDashboard />} />
+          <Route path="/dashboard/orders" element={<UserDashboard />} />
+          <Route path="/dashboard/settings" element={<UserDashboard />} />
 
           {/* Collector Authentication & Portal */}
           <Route path="/collector/login" element={<CollectorLogin />} />
@@ -106,6 +112,10 @@ export default function App() {
           <Route path="/collector/register" element={<CollectorLogin />} />
           <Route path="/collector/dashboard" element={<CollectorDashboard />} />
           <Route path="/collector-dashboard" element={<CollectorDashboard />} />
+          <Route path="/collector/orders" element={<CollectorDashboard />} />
+          <Route path="/collector/settings" element={<CollectorDashboard />} />
+          <Route path="/collector/dashboard/orders" element={<CollectorDashboard />} />
+          <Route path="/collector/dashboard/settings" element={<CollectorDashboard />} />
 
           {/* Admin Login Portal */}
           <Route path="/admin" element={<AdminLogin />} />

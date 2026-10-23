@@ -13,8 +13,6 @@ import {
   CampaignsIcon,
   SettingsIcon,
   LogoutIcon,
-  CollapseLeftIcon,
-  CollapseRightIcon,
   CloseIcon,
 } from './AdminIcons.jsx';
 
@@ -98,8 +96,6 @@ export const ADMIN_NAV_ITEMS = [
 ];
 
 export default function AdminSidebar({
-  collapsed = false,
-  onToggleCollapse,
   mobileOpen = false,
   onCloseMobile,
 }) {
@@ -128,7 +124,7 @@ export default function AdminSidebar({
 
       {/* Main Sidebar */}
       <aside
-        className={`sv-admin-sidebar ${collapsed ? 'collapsed' : ''} ${
+        className={`sv-admin-sidebar ${
           mobileOpen ? 'mobile-open' : ''
         }`}
         aria-label="Admin Navigation"
@@ -148,28 +144,10 @@ export default function AdminSidebar({
             />
             <div className="sv-sidebar-brand-meta">
               <span className="sv-sidebar-brand-title">
-                Scrap Venture
+                Admin Panel
               </span>
-              <span className="sv-sidebar-brand-badge">Admin Panel</span>
             </div>
           </Link>
-
-          {/* Desktop Collapse Toggle */}
-          {onToggleCollapse && (
-            <button
-              type="button"
-              className="sv-sidebar-desktop-collapse-btn"
-              onClick={onToggleCollapse}
-              aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-              title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            >
-              {collapsed ? (
-                <CollapseRightIcon size={16} />
-              ) : (
-                <CollapseLeftIcon size={16} />
-              )}
-            </button>
-          )}
 
           {/* Mobile Close Button */}
           {onCloseMobile && (
@@ -208,7 +186,7 @@ export default function AdminSidebar({
                     onClick={handleNavClick}
                     role="menuitem"
                     aria-current={isActive ? 'page' : undefined}
-                    title={collapsed ? item.name : undefined}
+                    title={item.name}
                   >
                     <span className="sv-sidebar-item-icon">
                       <IconComponent size={19} />
@@ -240,7 +218,7 @@ export default function AdminSidebar({
               onClick={handleNavClick}
               role="menuitem"
               aria-current={location.pathname === '/admin/settings' ? 'page' : undefined}
-              title={collapsed ? 'Settings' : undefined}
+              title="Settings"
             >
               <span className="sv-sidebar-item-icon">
                 <SettingsIcon size={19} />
@@ -260,7 +238,7 @@ export default function AdminSidebar({
               className="sv-sidebar-item-btn logout-btn"
               onClick={handleLogout}
               role="menuitem"
-              title={collapsed ? 'Logout' : undefined}
+              title="Logout"
             >
               <span className="sv-sidebar-item-icon">
                 <LogoutIcon size={19} />

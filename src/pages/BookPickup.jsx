@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SiteLayout from '../components/SiteLayout.jsx';
+import { getStoredAdminUsers, saveStoredAdminUsers } from '../data/adminUsersData.js';
 import {
   UserIcon,
   PhoneIcon,
@@ -516,6 +517,97 @@ export default function BookPickup() {
         const stored = JSON.parse(localStorage.getItem('scrapventure_bookings') || '[]');
         const updated = [bookingPayload, ...stored];
         localStorage.setItem('scrapventure_bookings', JSON.stringify(updated));
+
+        // Sync with customer dashboard pickups
+        const authUser = JSON.parse(localStorage.getItem('sv_auth_user') || 'null');
+        const userPickupsStored = JSON.parse(localStorage.getItem('sv_user_pickups') || '[]');
+        const targetUserId = authUser?.id || (customer.email ? `USR-${customer.email}` : `USR-${Date.now().toString().slice(-4)}`);
+
+        const resolvedCustomerName = customer.fullName || customer.name || authUser?.name || 'Recycler Customer';
+        const resolvedCustomerEmail = customer.email || authUser?.email || '';
+        const resolvedCustomerPhone = customer.phone || authUser?.phone || '';
+
+        const dashboardPickup = {
+          id: uniqueId,
+          userId: targetUserId,
+          customerName: resolvedCustomerName,
+          customerEmail: resolvedCustomerEmail,
+          customerPhone: resolvedCustomerPhone,
+          date: `${pickupDate} (${pickupTime})`,
+          scheduledDate: `${pickupDate} (${pickupTime})`,
+          requestDate: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+          address: fullAddressString || `${manualAddress.area}, ${manualAddress.city}`,
+          phone: resolvedCustomerPhone,
+          items: wasteList.map((w) => `${w.name} (${w.weightKg || w.qty || 10} kg)`),
+          materials: wasteList.map((w) => `${w.name} (${w.weightKg || w.qty || 10} kg)`),
+          estimatedWeight: `${totalEstimatedWeight} kg`,
+          actualWeight: null,
+          status: 'Scheduled',
+          collectorName: 'Pending Assignment',
+          collectorPhone: '',
+          earnedAmount: `৳ ${totalEstimatedValue} (Estimated)`,
+          notes: instructions || '',
+        };
+        localStorage.setItem('sv_user_pickups', JSON.stringify([dashboardPickup, ...userPickupsStored]));
+
+        // Sync with Admin Scrap Pickup console
+        const adminPickupsStored = JSON.parse(localStorage.getItem('sv_admin_pickups') || '[]');
+        const adminPickup = {
+          id: uniqueId,
+          userId: targetUserId,
+          customer: resolvedCustomerName,
+          customerName: resolvedCustomerName,
+          email: resolvedCustomerEmail,
+          customerEmail: resolvedCustomerEmail,
+          phone: resolvedCustomerPhone,
+          customerPhone: resolvedCustomerPhone,
+          address: fullAddressString || `${manualAddress.area}, ${manualAddress.city}`,
+          thana: manualAddress.area || manualAddress.city || 'Dhaka',
+          materials: wasteList.map((w) => `${w.name} (${w.weightKg || w.qty || 10} kg)`).join(', ') || 'Mixed Recyclables',
+          weight: `${totalEstimatedWeight} kg`,
+          estPayout: `৳${totalEstimatedValue}`,
+          timeSlot: `${pickupDate} (${pickupTime})`,
+          collector: 'Unassigned',
+          status: 'Pending',
+          notes: instructions || 'Doorstep recyclable collection.',
+          createdAt: new Date().toISOString()
+        };
+        localStorage.setItem('sv_admin_pickups', JSON.stringify([adminPickup, ...adminPickupsStored]));
+
+        // Ensure user is present in Admin Users list
+        try {
+          const adminUsers = getStoredAdminUsers();
+          const cleanPhone = (resolvedCustomerPhone || '').replace(/[\s-]/g, '');
+          const cleanEmail = (resolvedCustomerEmail || '').toLowerCase().trim();
+
+          const userExists = adminUsers.some(
+            (u) =>
+              (authUser?.id && u.id === authUser.id) ||
+              (cleanPhone && (u.phone || '').replace(/[\s-]/g, '') === cleanPhone) ||
+              (cleanEmail && (u.email || '').toLowerCase().trim() === cleanEmail) ||
+              (u.name && u.name.trim().toLowerCase() === resolvedCustomerName.trim().toLowerCase())
+          );
+
+          if (!userExists) {
+            const newUser = {
+              id: targetUserId,
+              name: resolvedCustomerName,
+              email: resolvedCustomerEmail || (cleanPhone ? `${cleanPhone}@scrapventure.xyz` : 'customer@scrapventure.xyz'),
+              phone: resolvedCustomerPhone || '01712-345678',
+              area: `${manualAddress.area || ''}, ${manualAddress.city || 'Dhaka'}`.replace(/^,\s*/, ''),
+              role: 'Residential Recycler',
+              recycledKg: 0,
+              rewards: '৳0',
+              status: 'Verified',
+            };
+            adminUsers.unshift(newUser);
+            saveStoredAdminUsers(adminUsers);
+          }
+        } catch (e) {
+          console.error(e);
+        }
+
+        window.dispatchEvent(new Event('sv_pickups_sync'));
       } catch {
         // fallback
       }

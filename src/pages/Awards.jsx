@@ -1,8 +1,35 @@
+import { useState, useEffect } from 'react';
 import SiteLayout from '../components/SiteLayout.jsx';
 import Reveal from '../components/Reveal.jsx';
 import awards from '../data/awards.js';
 
 export default function Awards() {
+  const [awardsList, setAwardsList] = useState(() => {
+    try {
+      const saved = localStorage.getItem('sv_awards_data');
+      if (saved) return JSON.parse(saved);
+      return awards;
+    } catch {
+      return awards;
+    }
+  });
+
+  useEffect(() => {
+    const handleSync = () => {
+      try {
+        const saved = localStorage.getItem('sv_awards_data');
+        if (saved) setAwardsList(JSON.parse(saved));
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    window.addEventListener('sv_awards_sync', handleSync);
+    window.addEventListener('storage', handleSync);
+    return () => {
+      window.removeEventListener('sv_awards_sync', handleSync);
+      window.removeEventListener('storage', handleSync);
+    };
+  }, []);
   return (
     <SiteLayout variant="awards" main mainClassName="awards-page-main">
       {/* Ambient Eco Decorative Elements in Background */}
@@ -52,11 +79,11 @@ export default function Awards() {
       <section className="awards-list-section">
         <div className="wrap">
           <div className="awards-list">
-            {awards.map((a) => (
+            {awardsList.map((a, idx) => (
               <Reveal
                 as="article"
                 className="award-item"
-                key={a.img}
+                key={a.id || a.title || idx}
               >
                 <div className="award-item__media">
                   <img src={a.img} alt={a.title} loading="lazy" />

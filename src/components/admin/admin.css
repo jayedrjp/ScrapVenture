@@ -13,13 +13,13 @@
   --sv-admin-muted: #64748b;
   --sv-admin-light: #94a3b8;
 
-  /* Dark neutral sidebar tokens */
-  --sv-sidebar-bg: #111827;
-  --sv-sidebar-surface: #1f2937;
-  --sv-sidebar-border: #1f2937;
-  --sv-sidebar-hover-bg: rgba(255, 255, 255, 0.06);
-  --sv-sidebar-text: #94a3b8;
-  --sv-sidebar-text-hover: #f8fafc;
+  /* Green sidebar tokens */
+  --sv-sidebar-bg: #269C26;
+  --sv-sidebar-surface: #228B22;
+  --sv-sidebar-border: #228B22;
+  --sv-sidebar-hover-bg: rgba(255, 255, 255, 0.12);
+  --sv-sidebar-text: rgba(255, 255, 255, 0.85);
+  --sv-sidebar-text-hover: #ffffff;
 
   /* Scrap Venture Orange Accent */
   --sv-accent-orange: #f97316;
@@ -34,7 +34,6 @@
 
   /* Dimensions */
   --sv-sidebar-width-expanded: 260px;
-  --sv-sidebar-width-collapsed: 74px;
   --sv-header-height: 64px;
 }
 
@@ -70,9 +69,6 @@
   user-select: none;
 }
 
-.sv-admin-sidebar.collapsed {
-  width: var(--sv-sidebar-width-collapsed);
-}
 
 /* Brand header */
 .sv-sidebar-brand-header {
@@ -120,47 +116,7 @@
 }
 
 .sv-sidebar-brand-badge {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--sv-accent-orange);
-  background: var(--sv-accent-orange-bg);
-  padding: 2px 6px;
-  border-radius: 4px;
-  display: inline-block;
-  align-self: flex-start;
-  margin-top: 1px;
-}
-
-.sv-sidebar-desktop-collapse-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: var(--sv-sidebar-text);
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  flex-shrink: 0;
-}
-
-.sv-sidebar-desktop-collapse-btn:hover {
-  background: var(--sv-sidebar-hover-bg);
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-.sv-admin-sidebar.collapsed .sv-sidebar-brand-meta {
   display: none;
-}
-
-.sv-admin-sidebar.collapsed .sv-sidebar-brand-header {
-  justify-content: center;
-  padding: 0;
 }
 
 /* Sidebar Navigation Items */
@@ -220,14 +176,14 @@
 
 .sv-sidebar-item-link:focus-visible,
 .sv-sidebar-item-btn:focus-visible {
-  outline: 2px solid var(--sv-accent-orange);
+  outline: 2px solid rgba(255, 255, 255, 0.5);
   outline-offset: -2px;
 }
 
 /* Active navigation item highlighting */
 .sv-sidebar-item-link.active {
-  color: var(--sv-accent-orange);
-  background: var(--sv-accent-orange-bg);
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.2);
   font-weight: 600;
 }
 
@@ -238,7 +194,7 @@
   top: 15%;
   bottom: 15%;
   width: 3.5px;
-  background: var(--sv-accent-orange);
+  background: #ffffff;
   border-radius: 0 4px 4px 0;
 }
 
@@ -251,7 +207,7 @@
 }
 
 .sv-sidebar-item-link.active .sv-sidebar-item-icon {
-  color: var(--sv-accent-orange);
+  color: #ffffff;
 }
 
 .sv-sidebar-item-label {
@@ -261,49 +217,9 @@
   flex: 1;
 }
 
-/* Collapsed state styling */
-.sv-admin-sidebar.collapsed .sv-sidebar-item-link,
-.sv-admin-sidebar.collapsed .sv-sidebar-item-btn {
-  justify-content: center;
-  padding: 10px 0;
-}
-
-.sv-admin-sidebar.collapsed .sv-sidebar-item-label {
-  display: none;
-}
-
-.sv-admin-sidebar.collapsed .sv-sidebar-item-link.active::before {
-  left: 2px;
-}
-
-/* Floating tooltip in collapsed state */
+/* Floating tooltip */
 .sv-sidebar-tooltip {
   position: relative;
-}
-
-.sv-admin-sidebar.collapsed .sv-sidebar-tooltip:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: calc(100% + 12px);
-  top: 50%;
-  transform: translateY(-50%);
-  background: #0f172a;
-  color: #ffffff;
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 6px;
-  white-space: nowrap;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  border: 1px solid #334155;
-  pointer-events: none;
-  animation: svTooltipIn 0.15s ease forwards;
-}
-
-@keyframes svTooltipIn {
-  from { opacity: 0; transform: translateY(-50%) translateX(-4px); }
-  to { opacity: 1; transform: translateY(-50%) translateX(0); }
 }
 
 /* Bottom / Divider & Footer */
@@ -311,10 +227,6 @@
   height: 1px;
   background: rgba(255, 255, 255, 0.08);
   margin: 10px 14px;
-}
-
-.sv-admin-sidebar.collapsed .sv-sidebar-divider {
-  margin: 10px 8px;
 }
 
 .sv-sidebar-footer {
@@ -326,16 +238,16 @@
 }
 
 .sv-sidebar-item-btn.logout-btn {
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .sv-sidebar-item-btn.logout-btn:hover {
-  color: #f87171;
-  background: rgba(239, 68, 68, 0.12);
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.2);
 }
 
 .sv-sidebar-item-btn.logout-btn:hover .sv-sidebar-item-icon {
-  color: #f87171;
+  color: #fca5a5;
 }
 
 /* ==========================================================================
@@ -378,21 +290,6 @@
 
   .sv-admin-sidebar.mobile-open {
     transform: translateX(0);
-  }
-
-  .sv-sidebar-desktop-collapse-btn {
-    display: none;
-  }
-
-  .sv-admin-sidebar.collapsed .sv-sidebar-brand-meta,
-  .sv-admin-sidebar .sv-sidebar-item-label {
-    display: block !important;
-  }
-
-  .sv-admin-sidebar.collapsed .sv-sidebar-item-link,
-  .sv-admin-sidebar.collapsed .sv-sidebar-item-btn {
-    justify-content: flex-start !important;
-    padding: 10px 14px !important;
   }
 
   .sv-sidebar-mobile-close-btn {
@@ -844,6 +741,51 @@
   color: #475569;
 }
 
+.sv-badge.red {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.sv-btn-edit {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.sv-btn-edit:hover {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.sv-btn-danger {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.sv-btn-danger:hover {
+  background: #dc2626;
+  color: #ffffff;
+}
+
 /* Search and Filters toolbar */
 .sv-toolbar {
   display: flex;
@@ -956,5 +898,79 @@
   margin-bottom: 20px;
   font-size: 12.5px;
   color: #475569;
+}
+
+/* Modal Close Button with Interactive Hover */
+.sv-modal-close-btn {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sv-modal-close-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+  transform: rotate(90deg) scale(1.08);
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+}
+
+/* Image Upload Component */
+.sv-upload-dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 10px;
+  padding: 16px 14px;
+  background: #f8fafc;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.sv-upload-dropzone:hover {
+  border-color: #f97316;
+  background: #fffaf5;
+}
+
+.sv-img-preview-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.sv-img-delete-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, 0.9);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+}
+
+.sv-img-delete-btn:hover {
+  background: #b91c1c;
+  transform: scale(1.15);
 }
 

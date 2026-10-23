@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import SiteLayout from '../components/SiteLayout.jsx';
 import Reveal from '../components/Reveal.jsx';
 import { leadersAndAdvisors, innovatorsAndCreators } from '../data/team.js';
@@ -49,6 +50,36 @@ function TeamSocialDock({ socials = {}, side = 'right' }) {
 }
 
 export default function Team() {
+  const [teamMembers, setTeamMembers] = useState(() => {
+    try {
+      const saved = localStorage.getItem('sv_team_members');
+      if (saved) return JSON.parse(saved);
+      return [...leadersAndAdvisors, ...innovatorsAndCreators];
+    } catch {
+      return [...leadersAndAdvisors, ...innovatorsAndCreators];
+    }
+  });
+
+  useEffect(() => {
+    const handleSync = () => {
+      try {
+        const saved = localStorage.getItem('sv_team_members');
+        if (saved) setTeamMembers(JSON.parse(saved));
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    window.addEventListener('sv_team_sync', handleSync);
+    window.addEventListener('storage', handleSync);
+    return () => {
+      window.removeEventListener('sv_team_sync', handleSync);
+      window.removeEventListener('storage', handleSync);
+    };
+  }, []);
+
+  const leaders = teamMembers.filter((m) => m.id !== 'fullstack-dev-sazzad');
+  const innovators = teamMembers.filter((m) => m.id === 'fullstack-dev-sazzad');
+
   return (
     <SiteLayout variant="team" main mainClassName="awards-page-main">
       {/* Ambient Eco Decorative Elements in Background - Identical to Awards & Blog */}
@@ -98,7 +129,7 @@ export default function Team() {
       <section className="team-content-section">
         <div className="wrap">
           <div className="team-roster-grid">
-            {leadersAndAdvisors.map((member) => (
+            {leaders.map((member) => (
               <Reveal as="article" className="team-card" key={member.id}>
                 {/* Photo on Top with Glaze Sheen & Animated Pop-Out Social Dock */}
                 <div className="team-card__media">
@@ -141,7 +172,7 @@ export default function Team() {
           </Reveal>
 
           <div className="team-innovators-grid">
-            {innovatorsAndCreators.map((member) => (
+            {innovators.map((member) => (
               <Reveal as="article" className="team-card" key={member.id}>
                 <div className="team-card__media">
                   <img

@@ -13,13 +13,35 @@ export default function ProductCard({ product }) {
   return (
     <article className="mp-product-card">
       {/* Card Header & Media */}
-      <div className="mp-card-media" onClick={() => setSelectedProduct(product)}>
+      <div className="mp-card-media" onClick={() => setSelectedProduct(product)} style={{ position: 'relative' }}>
         <img
           src={product.image}
           alt={product.name}
           loading="lazy"
           className="mp-product-img"
         />
+
+        {/* Dynamic Discount Offer Badge */}
+        {product.originalPrice && product.originalPrice > product.price && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '12px',
+              left: '12px',
+              background: '#ea580c',
+              color: '#ffffff',
+              fontWeight: 800,
+              fontSize: '11px',
+              padding: '3px 8px',
+              borderRadius: '6px',
+              boxShadow: '0 2px 6px rgba(234, 88, 12, 0.45)',
+              zIndex: 3,
+              letterSpacing: '0.3px',
+            }}
+          >
+            {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+          </div>
+        )}
 
         {/* Wishlist Button */}
         <button

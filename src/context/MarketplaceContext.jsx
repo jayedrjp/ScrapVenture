@@ -55,6 +55,34 @@ export function MarketplaceProvider({ children }) {
     setTimeout(() => setToast(null), 3200);
   };
 
+  // Products state synced with admin catalog
+  const [allProductsList, setAllProductsList] = useState(() => {
+    try {
+      const saved = localStorage.getItem('sv_marketplace_products');
+      if (saved) return JSON.parse(saved);
+      return PRODUCTS;
+    } catch {
+      return PRODUCTS;
+    }
+  });
+
+  useEffect(() => {
+    const handleSync = () => {
+      try {
+        const saved = localStorage.getItem('sv_marketplace_products');
+        if (saved) setAllProductsList(JSON.parse(saved));
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    window.addEventListener('sv_marketplace_sync', handleSync);
+    window.addEventListener('storage', handleSync);
+    return () => {
+      window.removeEventListener('sv_marketplace_sync', handleSync);
+      window.removeEventListener('storage', handleSync);
+    };
+  }, []);
+
   // Sync with localStorage
   useEffect(() => {
     try {
@@ -159,11 +187,35 @@ export function MarketplaceProvider({ children }) {
     setActiveOrder(newOrder);
     setCart([]);
     setIsCheckoutOpen(false);
+
+    // Sync with customer dashboard orders
+    try {
+      const authUser = JSON.parse(localStorage.getItem('sv_auth_user') || 'null');
+      const userOrdersStored = JSON.parse(localStorage.getItem('sv_user_orders') || '[]');
+      const dashboardOrder = {
+        id: orderId,
+        userId: authUser?.id || 'USR-7821',
+        customerEmail: orderData.email || authUser?.email || '',
+        customerPhone: orderData.phone || authUser?.phone || '',
+        date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+        items: cart.map((c) => `${c.product.name} (x${c.quantity})`),
+        itemsList: cart.map((c) => ({ name: c.product.name, quantity: c.quantity, price: c.product.price })),
+        totalAmount: cartTotal,
+        total: cartTotal,
+        status: 'Order Placed',
+        paymentMethod: orderData.paymentMethod || 'Cash on Delivery',
+        deliveryAddress: `${orderData.address || ''}, ${orderData.area || ''}, ${orderData.city || 'Dhaka'}`,
+      };
+      localStorage.setItem('sv_user_orders', JSON.stringify([dashboardOrder, ...userOrdersStored]));
+    } catch {
+      // fallback
+    }
+
     showToast(`Order #${orderId} confirmed successfully!`, 'success');
   };
 
   // Filter products
-  const filteredProducts = PRODUCTS.filter((p) => {
+  const filteredProducts = allProductsList.filter((p) => {
     // Search
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -203,7 +255,7 @@ export function MarketplaceProvider({ children }) {
     <MarketplaceContext.Provider
       value={{
         products: filteredProducts,
-        allProducts: PRODUCTS,
+        allProducts: allProductsList,
         cart,
         cartCount,
         cartSubtotal,

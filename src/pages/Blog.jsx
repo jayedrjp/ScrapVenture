@@ -1,9 +1,36 @@
+import { useState, useEffect } from 'react';
 import SiteLayout from '../components/SiteLayout.jsx';
 import Reveal from '../components/Reveal.jsx';
 import { ArrowIcon, NewspaperIcon } from '../components/icons.jsx';
 import newsArticles from '../data/news.js';
 
 export default function Blog() {
+  const [articles, setArticles] = useState(() => {
+    try {
+      const saved = localStorage.getItem('sv_blogs_data');
+      if (saved) return JSON.parse(saved);
+      return newsArticles;
+    } catch {
+      return newsArticles;
+    }
+  });
+
+  useEffect(() => {
+    const handleSync = () => {
+      try {
+        const saved = localStorage.getItem('sv_blogs_data');
+        if (saved) setArticles(JSON.parse(saved));
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    window.addEventListener('sv_blogs_sync', handleSync);
+    window.addEventListener('storage', handleSync);
+    return () => {
+      window.removeEventListener('sv_blogs_sync', handleSync);
+      window.removeEventListener('storage', handleSync);
+    };
+  }, []);
   return (
     <SiteLayout variant="blog" main mainClassName="awards-page-main">
       {/* Ambient Eco Decorative Elements in Background - Strictly 2 Watermarks matching Awards Page */}
@@ -41,7 +68,7 @@ export default function Blog() {
       <section className="blog-articles-section">
         <div className="wrap">
           <div className="news-cards-grid">
-            {newsArticles.map((article, idx) => (
+            {articles.map((article, idx) => (
               <Reveal
                 as="article"
                 className={`news-card news-card--delay-${idx + 1}`}

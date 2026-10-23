@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { getStoredAdminUsers, saveStoredAdminUsers } from '../data/adminUsersData.js';
 
 const AuthContext = createContext(null);
 
@@ -6,6 +7,9 @@ const AuthContext = createContext(null);
 const INITIAL_USER_ORDERS = [
   {
     id: 'ORD-7821',
+    userId: 'USR-7821',
+    customerEmail: 'sazzad.customer@gmail.com',
+    customerPhone: '01712-345678',
     date: '14 Oct 2026',
     items: ['Upcycled Kraft Paper Box (Pack of 50)', 'Eco-Friendly Planter Pot (Recycled Plastic, 2x)'],
     totalAmount: 970,
@@ -16,6 +20,9 @@ const INITIAL_USER_ORDERS = [
   },
   {
     id: 'ORD-7640',
+    userId: 'USR-7821',
+    customerEmail: 'sazzad.customer@gmail.com',
+    customerPhone: '01712-345678',
     date: '28 Sep 2026',
     items: ['Reprocessed Cotton Canvas Tote Bag (3x)'],
     totalAmount: 450,
@@ -29,6 +36,10 @@ const INITIAL_USER_ORDERS = [
 const INITIAL_USER_PICKUPS = [
   {
     id: 'PKP-9024',
+    userId: 'USR-7821',
+    customerName: 'Sazzad M Rahman',
+    customerEmail: 'sazzad.customer@gmail.com',
+    customerPhone: '01712-345678',
     date: '17 Oct 2026 (10:00 AM)',
     scheduledDate: '17 Oct 2026 (10:00 AM)',
     requestDate: '15 Oct 2026',
@@ -37,25 +48,259 @@ const INITIAL_USER_PICKUPS = [
     items: ['Old Newspaper & Books (15 kg)', 'Carton Boxes (10 kg)', 'Plastic Bottles (5 kg)'],
     materials: ['Old Newspaper & Books (15 kg)', 'Carton Boxes (10 kg)', 'Plastic Bottles (5 kg)'],
     estimatedWeight: '30 kg',
+    actualWeight: null,
     status: 'Scheduled',
     collectorName: 'Rafiqul Islam (Collector #C-104)',
     collectorPhone: '01819-876543',
-    earnedAmount: '৳ 680 (Estimated)'
+    earnedAmount: '৳ 680 (Estimated)',
+    notes: 'Please ring the calling bell on the 3rd floor.'
+  },
+  {
+    id: 'PKP-9011',
+    userId: 'USR-7821',
+    customerName: 'Sazzad M Rahman',
+    customerEmail: 'sazzad.customer@gmail.com',
+    customerPhone: '01712-345678',
+    date: '19 Oct 2026 (10:15 AM)',
+    scheduledDate: '19 Oct 2026',
+    requestDate: '18 Oct 2026',
+    completedDate: '2026-10-19T10:15:00Z',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    phone: '01712-345678',
+    items: ['Mixed Rigid Plastic Containers (14 kg)'],
+    materials: ['Mixed Rigid Plastic Containers (14 kg)'],
+    estimatedWeight: '12 kg',
+    actualWeight: '14 kg',
+    status: 'Completed',
+    collectorName: 'Rafiqul Islam (Collector #C-104)',
+    collectorPhone: '01819-876543',
+    earnedAmount: '৳ 490 (Paid via bKash)',
+    paidAmount: 490,
+    paymentStatus: 'Paid via bKash',
+    notes: 'Plastic containers verified and weighed with calibrated digital scale.'
   },
   {
     id: 'PKP-8812',
+    userId: 'USR-7821',
+    customerName: 'Sazzad M Rahman',
+    customerEmail: 'sazzad.customer@gmail.com',
+    customerPhone: '01712-345678',
     date: '03 Oct 2026 (02:30 PM)',
     scheduledDate: '03 Oct 2026',
     requestDate: '02 Oct 2026',
+    completedDate: '2026-10-03T14:30:00Z',
     address: 'House 42, Road 11, Block D, Banani, Dhaka',
     phone: '01712-345678',
     items: ['Discarded Garments / RMG Fabric (20 kg)', 'Broken Glass Bottles (8 kg)'],
     materials: ['Discarded Garments / RMG Fabric (20 kg)', 'Broken Glass Bottles (8 kg)'],
     estimatedWeight: '28 kg',
+    actualWeight: '28 kg',
     status: 'Completed',
     collectorName: 'Faruk Hossain (Collector #C-108)',
     collectorPhone: '01911-234567',
-    earnedAmount: '৳ 740 (Paid via bKash)'
+    earnedAmount: '৳ 596 (Paid via bKash)',
+    paidAmount: 596,
+    paymentStatus: 'Paid via bKash',
+    notes: 'RMG Fabric 20kg @ ৳25, Glass Bottles 8kg @ ৳12. Paid to customer.'
+  },
+  {
+    id: 'PKP-8540',
+    userId: 'USR-7821',
+    customerName: 'Sazzad M Rahman',
+    customerEmail: 'sazzad.customer@gmail.com',
+    customerPhone: '01712-345678',
+    date: '21 Sep 2026 (11:00 AM)',
+    scheduledDate: '21 Sep 2026',
+    requestDate: '20 Sep 2026',
+    completedDate: '2026-09-21T11:45:00Z',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    phone: '01712-345678',
+    items: ['Old Newspapers & Books (25 kg)', 'Carton Packaging Boxes (15 kg)'],
+    materials: ['Old Newspapers & Books (25 kg)', 'Carton Packaging Boxes (15 kg)'],
+    estimatedWeight: '40 kg',
+    actualWeight: '40 kg',
+    status: 'Completed',
+    collectorName: 'Shahidul Islam (Collector #C-102)',
+    collectorPhone: '01711-889900',
+    earnedAmount: '৳ 675 (Paid Cash)',
+    paidAmount: 675,
+    paymentStatus: 'Cash on Collection',
+    notes: 'Paper & Cardboard collected. Cash handed over directly.'
+  },
+  {
+    id: 'PKP-8319',
+    userId: 'USR-7821',
+    customerName: 'Sazzad M Rahman',
+    customerEmail: 'sazzad.customer@gmail.com',
+    customerPhone: '01712-345678',
+    date: '08 Sep 2026 (03:15 PM)',
+    scheduledDate: '08 Sep 2026',
+    requestDate: '07 Sep 2026',
+    completedDate: '2026-09-08T15:30:00Z',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    phone: '01712-345678',
+    items: ['Plastic Bottles (PET) & Containers (18 kg)', 'Scrap Metal & Iron Rods (12 kg)'],
+    materials: ['Plastic Bottles (PET) & Containers (18 kg)', 'Scrap Metal & Iron Rods (12 kg)'],
+    estimatedWeight: '30 kg',
+    actualWeight: '30 kg',
+    status: 'Completed',
+    collectorName: 'Jasim Uddin (Collector #C-106)',
+    collectorPhone: '01815-667788',
+    earnedAmount: '৳ 1,590 (Paid via bKash)',
+    paidAmount: 1590,
+    paymentStatus: 'Paid via bKash',
+    notes: 'PET Bottles 18kg @ ৳35 = ৳630, Iron Rods 12kg @ ৳80 = ৳960.'
+  }
+];
+
+// Verified individual scrap selling transactions for customer
+const INITIAL_USER_SALES = [
+  {
+    id: 'TXN-9011',
+    userId: 'USR-7821',
+    pickupId: 'PKP-9011',
+    date: '2026-10-19',
+    completedDate: '2026-10-19T10:15:00Z',
+    category: 'Plastic',
+    materialName: 'Mixed Rigid Plastic Containers',
+    collectedWeight: 14,
+    weightUnit: 'kg',
+    pricePerKg: 35,
+    totalAmount: 490,
+    collectorName: 'Rafiqul Islam',
+    collectorBadge: 'Collector #C-104',
+    collectorPhone: '01819-876543',
+    status: 'Verified',
+    paymentStatus: 'Paid via bKash',
+    paymentMethod: 'bKash Online',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    notes: 'Measured on digital scale, confirmed on customer dashboard.'
+  },
+  {
+    id: 'TXN-8812-1',
+    userId: 'USR-7821',
+    pickupId: 'PKP-8812',
+    date: '2026-10-03',
+    completedDate: '2026-10-03T14:30:00Z',
+    category: 'Textile',
+    materialName: 'Discarded Garments / RMG Fabric',
+    collectedWeight: 20,
+    weightUnit: 'kg',
+    pricePerKg: 25,
+    totalAmount: 500,
+    collectorName: 'Faruk Hossain',
+    collectorBadge: 'Collector #C-108',
+    collectorPhone: '01911-234567',
+    status: 'Completed',
+    paymentStatus: 'Paid via bKash',
+    paymentMethod: 'bKash Online',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    notes: 'Clean RMG fabric scraps weighed on certified scale.'
+  },
+  {
+    id: 'TXN-8812-2',
+    userId: 'USR-7821',
+    pickupId: 'PKP-8812',
+    date: '2026-10-03',
+    completedDate: '2026-10-03T14:30:00Z',
+    category: 'Glass',
+    materialName: 'Broken Glass Bottles',
+    collectedWeight: 8,
+    weightUnit: 'kg',
+    pricePerKg: 12,
+    totalAmount: 96,
+    collectorName: 'Faruk Hossain',
+    collectorBadge: 'Collector #C-108',
+    collectorPhone: '01911-234567',
+    status: 'Completed',
+    paymentStatus: 'Paid via bKash',
+    paymentMethod: 'bKash Online',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    notes: 'Glass sorted and weighed safely.'
+  },
+  {
+    id: 'TXN-8540-1',
+    userId: 'USR-7821',
+    pickupId: 'PKP-8540',
+    date: '2026-09-21',
+    completedDate: '2026-09-21T11:45:00Z',
+    category: 'Paper',
+    materialName: 'Old Newspapers & Books',
+    collectedWeight: 25,
+    weightUnit: 'kg',
+    pricePerKg: 18,
+    totalAmount: 450,
+    collectorName: 'Shahidul Islam',
+    collectorBadge: 'Collector #C-102',
+    collectorPhone: '01711-889900',
+    status: 'Verified',
+    paymentStatus: 'Cash on Collection',
+    paymentMethod: 'Cash',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    notes: 'Bundles of old newspapers and textbooks.'
+  },
+  {
+    id: 'TXN-8540-2',
+    userId: 'USR-7821',
+    pickupId: 'PKP-8540',
+    date: '2026-09-21',
+    completedDate: '2026-09-21T11:45:00Z',
+    category: 'Cardboard',
+    materialName: 'Carton Packaging Boxes',
+    collectedWeight: 15,
+    weightUnit: 'kg',
+    pricePerKg: 15,
+    totalAmount: 225,
+    collectorName: 'Shahidul Islam',
+    collectorBadge: 'Collector #C-102',
+    collectorPhone: '01711-889900',
+    status: 'Verified',
+    paymentStatus: 'Cash on Collection',
+    paymentMethod: 'Cash',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    notes: 'Flattened clean corrugated carton boxes.'
+  },
+  {
+    id: 'TXN-8319-1',
+    userId: 'USR-7821',
+    pickupId: 'PKP-8319',
+    date: '2026-09-08',
+    completedDate: '2026-09-08T15:30:00Z',
+    category: 'Plastic',
+    materialName: 'Plastic Bottles (PET) & Containers',
+    collectedWeight: 18,
+    weightUnit: 'kg',
+    pricePerKg: 35,
+    totalAmount: 630,
+    collectorName: 'Jasim Uddin',
+    collectorBadge: 'Collector #C-106',
+    collectorPhone: '01815-667788',
+    status: 'Completed',
+    paymentStatus: 'Paid via bKash',
+    paymentMethod: 'bKash Online',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    notes: 'Beverage bottles & cleaned plastics.'
+  },
+  {
+    id: 'TXN-8319-2',
+    userId: 'USR-7821',
+    pickupId: 'PKP-8319',
+    date: '2026-09-08',
+    completedDate: '2026-09-08T15:30:00Z',
+    category: 'Metal',
+    materialName: 'Scrap Metal & Iron Rods',
+    collectedWeight: 12,
+    weightUnit: 'kg',
+    pricePerKg: 80,
+    totalAmount: 960,
+    collectorName: 'Jasim Uddin',
+    collectorBadge: 'Collector #C-106',
+    collectorPhone: '01815-667788',
+    status: 'Completed',
+    paymentStatus: 'Paid via bKash',
+    paymentMethod: 'bKash Online',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    notes: 'Disused iron rods and copper/brass scrap.'
   }
 ];
 
@@ -64,17 +309,24 @@ const INITIAL_COLLECTOR_PICKUPS = [
   {
     id: 'TASK-501',
     customerName: 'Sazzad M Rahman',
+    userId: 'USR-7821',
     phone: '01712-345678',
     customerPhone: '01712-345678',
     address: 'House 42, Road 11, Block D, Banani, Dhaka',
-    scrapItems: ['Newspaper & Cartons', 'Plastic Containers'],
-    items: ['Newspaper & Cartons', 'Plastic Containers'],
-    materials: ['Newspaper & Cartons', 'Plastic Containers'],
+    thana: 'Banani',
+    scrapItems: ['Old Newspapers & Cartons (15 kg)', 'Plastic Bottles PET (15 kg)'],
+    items: ['Old Newspapers & Cartons (15 kg)', 'Plastic Bottles PET (15 kg)'],
+    materials: ['Old Newspapers & Cartons (15 kg)', 'Plastic Bottles PET (15 kg)'],
     estimatedWeight: '30 kg',
     scheduledTime: 'Today, 10:30 AM',
-    timeSlot: 'Today, 10:30 AM',
+    scheduledDate: 'Today',
+    timeSlot: 'Today, 10:30 AM - 12:00 PM',
     status: 'Assigned',
-    notes: 'Please ring the calling bell on the 3rd floor.'
+    collectorId: 'COL-104',
+    collectorName: 'Rafiqul Islam (Collector #C-104)',
+    collectorPhone: '01819-876543',
+    estPayout: '৳ 680',
+    notes: 'Please ring the calling bell on the 3rd floor. Materials are boxed.'
   },
   {
     id: 'TASK-502',
@@ -82,14 +334,42 @@ const INITIAL_COLLECTOR_PICKUPS = [
     phone: '01822-998877',
     customerPhone: '01822-998877',
     address: 'House 18, Road 4, Sector 7, Uttara, Dhaka',
-    scrapItems: ['Scrap Metal & Iron Rods', 'Aluminium Cans'],
-    items: ['Scrap Metal & Iron Rods', 'Aluminium Cans'],
-    materials: ['Scrap Metal & Iron Rods', 'Aluminium Cans'],
+    thana: 'Uttara',
+    scrapItems: ['Scrap Metal & Iron Rods (30 kg)', 'Aluminium Beverage Cans (15 kg)'],
+    items: ['Scrap Metal & Iron Rods (30 kg)', 'Aluminium Beverage Cans (15 kg)'],
+    materials: ['Scrap Metal & Iron Rods (30 kg)', 'Aluminium Beverage Cans (15 kg)'],
     estimatedWeight: '45 kg',
     scheduledTime: 'Today, 02:00 PM',
-    timeSlot: 'Today, 02:00 PM',
-    status: 'En Route',
-    notes: 'Garage pickup, gate will be open.'
+    scheduledDate: 'Today',
+    timeSlot: 'Today, 02:00 PM - 03:30 PM',
+    status: 'In Progress',
+    collectorId: 'COL-104',
+    collectorName: 'Rafiqul Islam (Collector #C-104)',
+    collectorPhone: '01819-876543',
+    estPayout: '৳ 1,350',
+    notes: 'Garage pickup on ground floor. Gate security is informed.'
+  },
+  {
+    id: 'PKP-9011',
+    customerName: 'Sazzad M Rahman',
+    userId: 'USR-7821',
+    phone: '01712-345678',
+    customerPhone: '01712-345678',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    thana: 'Banani',
+    scrapItems: ['Plastic Bottles (PET) & Containers (18 kg)', 'Clean Corrugated Cardboard (12 kg)'],
+    items: ['Plastic Bottles (PET) & Containers (18 kg)', 'Clean Corrugated Cardboard (12 kg)'],
+    materials: ['Plastic Bottles (PET) & Containers (18 kg)', 'Clean Corrugated Cardboard (12 kg)'],
+    estimatedWeight: '30 kg',
+    scheduledTime: 'Today, 04:30 PM',
+    scheduledDate: 'Today',
+    timeSlot: 'Today, 04:30 PM - 05:45 PM',
+    status: 'Assigned',
+    collectorId: 'COL-104',
+    collectorName: 'Rafiqul Islam (Collector #C-104)',
+    collectorPhone: '01819-876543',
+    estPayout: '৳ 680',
+    notes: 'Please bring digital hanging scale. Blue bags ready near lobby.'
   },
   {
     id: 'TASK-498',
@@ -97,18 +377,115 @@ const INITIAL_COLLECTOR_PICKUPS = [
     phone: '01933-445566',
     customerPhone: '01933-445566',
     address: 'Plot 12, Gulshan-2, Road 68, Dhaka',
-    scrapItems: ['RMG Fabric Scraps', 'Paper Shreds'],
-    items: ['RMG Fabric Scraps', 'Paper Shreds'],
-    materials: ['RMG Fabric Scraps', 'Paper Shreds'],
+    thana: 'Gulshan',
+    scrapItems: ['RMG Fabric Scraps (14 kg)', 'Office Shredded Paper (10 kg)'],
+    items: ['RMG Fabric Scraps (14 kg)', 'Office Shredded Paper (10 kg)'],
+    materials: ['RMG Fabric Scraps (14 kg)', 'Office Shredded Paper (10 kg)'],
     estimatedWeight: '22 kg',
     finalWeight: '24 kg',
+    actualWeight: '24 kg',
     collectedWeight: '24 kg',
     payout: '620',
     cashPaid: '৳ 620',
-    scheduledTime: 'Yesterday',
-    timeSlot: 'Yesterday',
+    collectorEarnings: 120,
+    scheduledTime: 'Yesterday, 11:00 AM',
+    scheduledDate: 'Yesterday',
+    completedAt: '2026-10-22T11:45:00Z',
     status: 'Completed',
-    notes: 'Completed successfully.'
+    collectorId: 'COL-104',
+    collectorName: 'Rafiqul Islam (Collector #C-104)',
+    notes: 'Weighed on digital scale and cash handed over directly.'
+  },
+  {
+    id: 'PKP-8842',
+    customerName: 'Sazzad M Rahman',
+    userId: 'USR-7821',
+    phone: '01712-345678',
+    customerPhone: '01712-345678',
+    address: 'House 42, Road 11, Block D, Banani, Dhaka',
+    thana: 'Banani',
+    scrapItems: ['Clean PET Beverage Bottles (14 kg)'],
+    items: ['Clean PET Beverage Bottles (14 kg)'],
+    materials: ['Clean PET Beverage Bottles (14 kg)'],
+    estimatedWeight: '14 kg',
+    finalWeight: '14 kg',
+    actualWeight: '14 kg',
+    collectedWeight: '14 kg',
+    payout: '490',
+    cashPaid: '৳ 490',
+    collectorEarnings: 70,
+    scheduledTime: '28 Sep 2026, 04:00 PM',
+    scheduledDate: '28 Sep 2026',
+    completedAt: '2026-09-28T16:45:00Z',
+    status: 'Completed',
+    collectorId: 'COL-104',
+    collectorName: 'Rafiqul Islam (Collector #C-104)',
+    notes: 'Verified scale weight and paid via bKash.'
+  },
+  // Other Collector Assignments
+  {
+    id: 'PK-4091',
+    customerName: 'Tanvir Ahmed',
+    phone: '+880 1711-234567',
+    customerPhone: '+880 1711-234567',
+    address: 'House 14, Road 18, Sector 11, Uttara',
+    thana: 'Uttara',
+    scrapItems: ['Paper & Cardboard (45 kg)'],
+    items: ['Paper & Cardboard (45 kg)'],
+    materials: ['Paper & Cardboard (45 kg)'],
+    estimatedWeight: '45 kg',
+    timeSlot: 'Today, 2:30 PM - 4:00 PM',
+    scheduledTime: 'Today, 2:30 PM',
+    scheduledDate: 'Today',
+    status: 'Assigned',
+    collector: 'Md. Faruk Hossain (Van-04)',
+    collectorName: 'Md. Faruk Hossain (Van-04)',
+    collectorId: 'COL-001',
+    estPayout: '৳ 810'
+  },
+  {
+    id: 'PK-4093',
+    customerName: 'Farzana Huq',
+    phone: '+880 1912-334455',
+    customerPhone: '+880 1912-334455',
+    address: 'Avenue 3, Mirpur DOHS',
+    thana: 'Mirpur',
+    scrapItems: ['E-Waste (CPU, Batteries, Cables) (16 kg)'],
+    items: ['E-Waste (CPU, Batteries, Cables) (16 kg)'],
+    materials: ['E-Waste (CPU, Batteries, Cables) (16 kg)'],
+    estimatedWeight: '16 kg',
+    timeSlot: 'Today, 11:00 AM - 1:00 PM',
+    scheduledTime: 'Today, 11:00 AM',
+    scheduledDate: 'Today',
+    status: 'In Progress',
+    collector: 'Shahidul Islam (Van-12)',
+    collectorName: 'Shahidul Islam (Van-12)',
+    collectorId: 'COL-002',
+    estPayout: '৳ 1,200'
+  },
+  {
+    id: 'PK-4094',
+    customerName: 'Milestone School & College',
+    phone: '+880 1611-778899',
+    customerPhone: '+880 1611-778899',
+    address: 'Sector 3 Campus, Uttara',
+    thana: 'Uttara',
+    scrapItems: ['Academic Waste Paper & Cartons (140 kg)'],
+    items: ['Academic Waste Paper & Cartons (140 kg)'],
+    materials: ['Academic Waste Paper & Cartons (140 kg)'],
+    estimatedWeight: '140 kg',
+    actualWeight: '140 kg',
+    collectedWeight: '140 kg',
+    timeSlot: 'Yesterday, 10:00 AM',
+    scheduledTime: 'Yesterday, 10:00 AM',
+    scheduledDate: 'Yesterday',
+    status: 'Completed',
+    collector: 'Jasim Uddin (E-Trike 02)',
+    collectorName: 'Jasim Uddin (E-Trike 02)',
+    collectorId: 'COL-003',
+    payout: '2520',
+    cashPaid: '৳ 2,520',
+    collectorEarnings: 700
   }
 ];
 
@@ -116,12 +493,12 @@ const INITIAL_COLLECTOR_PICKUPS = [
 if (typeof window !== 'undefined') {
   try {
     const schemaVersion = localStorage.getItem('sv_auth_schema_ver');
-    if (schemaVersion !== '3') {
-      localStorage.removeItem('sv_auth_user');
-      localStorage.removeItem('sv_user_orders');
-      localStorage.removeItem('sv_user_pickups');
-      localStorage.removeItem('sv_collector_pickups');
-      localStorage.setItem('sv_auth_schema_ver', '3');
+    if (schemaVersion !== '5') {
+      localStorage.setItem('sv_user_orders', JSON.stringify(INITIAL_USER_ORDERS));
+      localStorage.setItem('sv_user_pickups', JSON.stringify(INITIAL_USER_PICKUPS));
+      localStorage.setItem('sv_user_sales', JSON.stringify(INITIAL_USER_SALES));
+      localStorage.setItem('sv_collector_pickups', JSON.stringify(INITIAL_COLLECTOR_PICKUPS));
+      localStorage.setItem('sv_auth_schema_ver', '5');
     }
   } catch (e) {
     console.error(e);
@@ -154,6 +531,15 @@ export function AuthProvider({ children }) {
       return saved ? JSON.parse(saved) : INITIAL_USER_PICKUPS;
     } catch {
       return INITIAL_USER_PICKUPS;
+    }
+  });
+
+  const [userSales, setUserSales] = useState(() => {
+    try {
+      const saved = localStorage.getItem('sv_user_sales');
+      return saved ? JSON.parse(saved) : INITIAL_USER_SALES;
+    } catch {
+      return INITIAL_USER_SALES;
     }
   });
 
@@ -210,6 +596,10 @@ export function AuthProvider({ children }) {
   }, [userPickups]);
 
   useEffect(() => {
+    localStorage.setItem('sv_user_sales', JSON.stringify(userSales));
+  }, [userSales]);
+
+  useEffect(() => {
     localStorage.setItem('sv_collector_pickups', JSON.stringify(collectorPickups));
   }, [collectorPickups]);
 
@@ -219,24 +609,127 @@ export function AuthProvider({ children }) {
 
   // Customer / User Login
   const loginUser = (emailOrPhone, password) => {
-    const user = {
+    const cleanInput = (emailOrPhone || '').trim();
+    const cleanLower = cleanInput.toLowerCase();
+
+    // Check if account is suspended / banned for 30 days
+    try {
+      const suspended = JSON.parse(localStorage.getItem('sv_suspended_users') || '[]');
+      const cleanPhone = cleanInput.replace(/[\s-]/g, '');
+      const isSuspended = suspended.find((s) => {
+        const sPhone = (s.phone || '').replace(/[\s-]/g, '');
+        const match =
+          (s.email && s.email.toLowerCase() === cleanLower) ||
+          (sPhone && sPhone === cleanPhone) ||
+          s.id === cleanInput;
+        if (match) {
+          if (s.bannedUntil && Date.now() > s.bannedUntil) return false;
+          return true;
+        }
+        return false;
+      });
+
+      if (isSuspended) {
+        return {
+          success: false,
+          error: 'Your account is currently suspended for 1 month by administrator decision. You cannot log in right now, but you may browse the public website.'
+        };
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    // 1. Pre-configured Sazzad Demo Customer
+    if (
+      cleanLower === 'sazzad.customer@gmail.com' ||
+      cleanInput === '01712-345678' ||
+      cleanInput === '01712345678'
+    ) {
+      const user = {
+        id: 'USR-7821',
+        name: 'Sazzad M Rahman',
+        email: 'sazzad.customer@gmail.com',
+        phone: '01712-345678',
+        role: 'user',
+        address: 'House 42, Road 11, Block D, Banani, Dhaka',
+        joinedDate: 'October 2026',
+        verified: true,
+        avatar: null,
+        totalRecycledKg: 112,
+        rewardPoints: 240
+      };
+      setCurrentUser(user);
+      return { success: true, user };
+    }
+
+    // 2. Lookup existing registered customer
+    let registeredUsers = [];
+    try {
+      registeredUsers = JSON.parse(localStorage.getItem('sv_registered_users') || '[]');
+    } catch {
+      registeredUsers = [];
+    }
+
+    const matched = registeredUsers.find(
+      (u) =>
+        (u.email && u.email.toLowerCase() === cleanLower) ||
+        (u.phone && u.phone.replace(/[\s-]/g, '') === cleanInput.replace(/[\s-]/g, ''))
+    );
+
+    if (matched) {
+      setCurrentUser(matched);
+      return { success: true, user: matched };
+    }
+
+    // 3. Create persistent record for new login
+    const newUser = {
       id: 'USR-' + Math.floor(1000 + Math.random() * 9000),
-      name: emailOrPhone.includes('@') ? emailOrPhone.split('@')[0].replace(/[._]/g, ' ') : 'Customer',
-      email: emailOrPhone.includes('@') ? emailOrPhone : 'customer@scrapventure.xyz',
-      phone: emailOrPhone.includes('@') ? '01712-345678' : emailOrPhone,
+      name: cleanInput.includes('@') ? cleanInput.split('@')[0].replace(/[._]/g, ' ') : 'Customer',
+      email: cleanInput.includes('@') ? cleanInput : `${cleanInput.replace(/[^0-9]/g, '') || 'customer'}@scrapventure.xyz`,
+      phone: cleanInput.includes('@') ? '01712-345678' : cleanInput,
       role: 'user',
-      address: 'House 42, Road 11, Block D, Banani, Dhaka',
+      address: 'Dhaka, Bangladesh',
       joinedDate: 'October 2026',
-      totalRecycledKg: 58,
-      rewardPoints: 240
+      verified: true,
+      avatar: null,
+      totalRecycledKg: 0,
+      rewardPoints: 50
     };
-    setCurrentUser(user);
-    return { success: true, user };
+
+    registeredUsers.push(newUser);
+    try {
+      localStorage.setItem('sv_registered_users', JSON.stringify(registeredUsers));
+    } catch (e) {
+      console.error(e);
+    }
+
+    setCurrentUser(newUser);
+    return { success: true, user: newUser };
   };
 
   // Google Sign-in (Architecture ready for real Google OAuth2 / Firebase / Backend DB)
   const loginWithGoogle = (googleProfile = {}) => {
-    const email = googleProfile.email?.trim() || 'user.scrap@gmail.com';
+    const email = googleProfile.email?.trim() || 'sazzad.customer@gmail.com';
+    if (email.toLowerCase() === 'sazzad.customer@gmail.com') {
+      const user = {
+        id: 'USR-7821',
+        name: 'Sazzad M Rahman',
+        email: 'sazzad.customer@gmail.com',
+        phone: '01712-345678',
+        role: 'user',
+        address: 'House 42, Road 11, Block D, Banani, Dhaka',
+        joinedDate: 'October 2026',
+        verified: true,
+        avatar: googleProfile.avatar || null,
+        totalRecycledKg: 112,
+        rewardPoints: 240,
+        authProvider: 'google',
+        isGoogleAuth: true
+      };
+      setCurrentUser(user);
+      return { success: true, user };
+    }
+
     const name = googleProfile.name?.trim() || (email.split('@')[0].replace(/[._]/g, ' ') || 'Google User');
     const user = {
       id: 'USR-G' + Math.floor(1000 + Math.random() * 9000),
@@ -247,6 +740,7 @@ export function AuthProvider({ children }) {
       role: 'user',
       address: googleProfile.address || 'Dhaka, Bangladesh',
       joinedDate: 'October 2026',
+      verified: true,
       totalRecycledKg: 0,
       rewardPoints: 50,
       authProvider: 'google',
@@ -267,6 +761,7 @@ export function AuthProvider({ children }) {
       role: 'user',
       address: 'Gulshan 1, Dhaka',
       joinedDate: 'October 2026',
+      verified: true,
       totalRecycledKg: 30,
       rewardPoints: 120,
       isAppleAuth: true
@@ -277,7 +772,14 @@ export function AuthProvider({ children }) {
 
   // Customer Registration
   const registerUser = (data) => {
-    const user = {
+    let registeredUsers = [];
+    try {
+      registeredUsers = JSON.parse(localStorage.getItem('sv_registered_users') || '[]');
+    } catch {
+      registeredUsers = [];
+    }
+
+    const newUser = {
       id: 'USR-' + Math.floor(1000 + Math.random() * 9000),
       name: data.name || 'New Customer',
       email: data.email || 'customer@scrapventure.xyz',
@@ -285,11 +787,21 @@ export function AuthProvider({ children }) {
       address: data.address || 'Dhaka, Bangladesh',
       role: 'user',
       joinedDate: 'Today',
+      verified: true,
+      avatar: null,
       totalRecycledKg: 0,
       rewardPoints: 50
     };
-    setCurrentUser(user);
-    return { success: true, user };
+
+    registeredUsers.push(newUser);
+    try {
+      localStorage.setItem('sv_registered_users', JSON.stringify(registeredUsers));
+    } catch (e) {
+      console.error(e);
+    }
+
+    setCurrentUser(newUser);
+    return { success: true, user: newUser };
   };
 
   // Submit Collector Application (Used by both Become a Collector form & Collector Login page)
@@ -335,28 +847,137 @@ export function AuthProvider({ children }) {
     const cleanInput = (emailOrPhone || '').trim();
     const cleanPhone = cleanInput.replace(/[\s-]/g, '');
 
-    // 1. Instant Demo Collector (Pre-approved)
-    if (
-      cleanPhone === '01819876543' ||
-      cleanInput === '01819-876543' ||
-      cleanInput.toLowerCase() === 'rafiq.collector@scrapventure.xyz'
-    ) {
-      const collector = {
+    // Check if collector has been fired / terminated by admin
+    try {
+      const fired = JSON.parse(localStorage.getItem('sv_fired_collectors') || '[]');
+      const isFired = fired.find((f) => {
+        const fPhone = (f.phone || '').replace(/[\s-]/g, '');
+        return (
+          (f.email && f.email.toLowerCase() === cleanInput.toLowerCase()) ||
+          (fPhone && fPhone === cleanPhone) ||
+          f.id === cleanInput
+        );
+      });
+      if (isFired) {
+        return {
+          success: false,
+          error: 'Your collector employment has been terminated by the ScrapVenture Admin. Access to the Collector Portal is revoked.'
+        };
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    // 1. Instant Pre-approved Registered Collectors
+    const REGISTERED_COLLECTORS = [
+      {
         id: 'COL-104',
         name: 'Rafiqul Islam',
         email: 'rafiq.collector@scrapventure.xyz',
         phone: '01819-876543',
+        cleanPhone: '01819876543',
         role: 'collector',
-        badgeId: 'SV-COL-8841',
+        badgeId: 'COL-104',
         zone: 'Dhaka North (Banani, Gulshan, Uttara)',
         vehicle: 'Motorized Van (ঢাকা মেট্রো-হ ১১-২২৩৩)',
         joinedDate: 'January 2026',
         totalPickupsDone: 94,
         totalWeightCollected: 1420,
-        totalEarnings: 42500
-      };
-      setCurrentUser(collector);
-      return { success: true, user: collector };
+        totalEarnings: 42500,
+        status: 'Active',
+        approved: true,
+        rating: '4.95'
+      },
+      {
+        id: 'COL-001',
+        name: 'Md. Faruk Hossain',
+        email: 'faruk.collector@scrapventure.xyz',
+        phone: '01718-445566',
+        cleanPhone: '01718445566',
+        altPhone: '01911234567',
+        role: 'collector',
+        badgeId: 'COL-001',
+        zone: 'Uttara (Sector 1 to 14)',
+        vehicle: 'Van-04 (Electric)',
+        joinedDate: 'December 2025',
+        totalPickupsDone: 148,
+        totalWeightCollected: 2150,
+        totalEarnings: 32400,
+        status: 'Active',
+        approved: true,
+        rating: '4.9'
+      },
+      {
+        id: 'COL-002',
+        name: 'Shahidul Islam',
+        email: 'shahidul.collector@scrapventure.xyz',
+        phone: '01812-334455',
+        cleanPhone: '01812334455',
+        altPhone: '01711889900',
+        role: 'collector',
+        badgeId: 'COL-002',
+        zone: 'Mirpur & Pallabi',
+        vehicle: 'Van-12 (Electric)',
+        joinedDate: 'February 2026',
+        totalPickupsDone: 112,
+        totalWeightCollected: 1680,
+        totalEarnings: 24500,
+        status: 'Active',
+        approved: true,
+        rating: '4.8'
+      },
+      {
+        id: 'COL-003',
+        name: 'Jasim Uddin',
+        email: 'jasim.collector@scrapventure.xyz',
+        phone: '01911-667788',
+        cleanPhone: '01911667788',
+        altPhone: '01815667788',
+        role: 'collector',
+        badgeId: 'COL-003',
+        zone: 'Gulshan & Banani',
+        vehicle: 'E-Trike 02',
+        joinedDate: 'March 2026',
+        totalPickupsDone: 94,
+        totalWeightCollected: 1410,
+        totalEarnings: 21100,
+        status: 'Active',
+        approved: true,
+        rating: '4.9'
+      },
+      {
+        id: 'COL-004',
+        name: 'Anwar Ali',
+        email: 'anwar.collector@scrapventure.xyz',
+        phone: '01612-889900',
+        cleanPhone: '01612889900',
+        role: 'collector',
+        badgeId: 'COL-004',
+        zone: 'Dhanmondi & Mohammadpur',
+        vehicle: 'Van-07 (Electric)',
+        joinedDate: 'April 2026',
+        totalPickupsDone: 82,
+        totalWeightCollected: 1230,
+        totalEarnings: 17800,
+        status: 'Active',
+        approved: true,
+        rating: '4.7'
+      }
+    ];
+
+    const matchedCollector = REGISTERED_COLLECTORS.find((c) => {
+      return (
+        c.cleanPhone === cleanPhone ||
+        c.altPhone === cleanPhone ||
+        c.phone === cleanInput ||
+        c.email.toLowerCase() === cleanInput.toLowerCase() ||
+        (cleanInput.toLowerCase() === 'demo' && c.id === 'COL-104')
+      );
+    });
+
+    if (matchedCollector) {
+      setCurrentUser(matchedCollector);
+      return { success: true, user: matchedCollector };
     }
 
     // 2. Look up application
@@ -398,7 +1019,10 @@ export function AuthProvider({ children }) {
         joinedDate: matchedApp.appliedAt || 'Recent',
         totalPickupsDone: 0,
         totalWeightCollected: 0,
-        totalEarnings: 0
+        totalEarnings: 0,
+        status: 'Active',
+        approved: true,
+        rating: '5.0'
       };
       setCurrentUser(collector);
       return { success: true, user: collector };
@@ -416,35 +1040,365 @@ export function AuthProvider({ children }) {
     return submitCollectorApplication(data);
   };
 
-  // Update User Profile Settings
+  // Update User / Collector Profile Settings
   const updateUserSettings = (updatedFields) => {
     if (!currentUser) return;
     const updated = { ...currentUser, ...updatedFields };
     setCurrentUser(updated);
-    return { success: true };
+
+    try {
+      const registeredUsers = JSON.parse(localStorage.getItem('sv_registered_users') || '[]');
+      const idx = registeredUsers.findIndex((u) => u.id === updated.id);
+      if (idx !== -1) {
+        registeredUsers[idx] = updated;
+        localStorage.setItem('sv_registered_users', JSON.stringify(registeredUsers));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    return { success: true, user: updated };
   };
 
   // Change Password
   const changePassword = (currentPass, newPass) => {
-    // Simulated password update
+    // Simulated secure password update
     return { success: true };
   };
 
-  // Collector Updates a Task's status / weighed amount
-  const updateCollectorTask = (taskId, newStatus, weight, amount) => {
-    setCollectorPickups((prev) =>
-      prev.map((t) => {
+  // Add a new Pickup request for user
+  const addUserPickup = (newPickup) => {
+    setUserPickups((prev) => [newPickup, ...prev]);
+  };
+
+  // Add a new Selling Transaction for user
+  const addUserSale = (newSale) => {
+    setUserSales((prev) => {
+      const filtered = prev.filter((s) => s.id !== newSale.id && s.pickupId !== newSale.pickupId);
+      const updated = [newSale, ...filtered];
+      try {
+        localStorage.setItem('sv_user_sales', JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      return updated;
+    });
+  };
+
+  // Add a new Marketplace order for user
+  const addUserOrder = (newOrder) => {
+    setUserOrders((prev) => [newOrder, ...prev]);
+  };
+
+  // Collector Updates a Task's status / weighed amount with cross-dashboard synchronization
+  const updateCollectorTask = (taskId, newStatus, weight, amount, customNotes) => {
+    const numericWeight = weight ? parseFloat(String(weight).replace(/[^0-9.]/g, '')) : null;
+    const weightStr = numericWeight ? `${numericWeight} kg` : null;
+    const payoutStr = amount ? `৳ ${String(amount).replace(/[^0-9]/g, '')}` : null;
+    const completionDate = new Date().toISOString();
+
+    // 1. Update collectorPickups
+    setCollectorPickups((prev) => {
+      const updated = prev.map((t) => {
         if (t.id === taskId) {
+          const earned = numericWeight ? Math.round(numericWeight * 5) : (t.collectorEarnings || 100);
           return {
             ...t,
             status: newStatus,
-            collectedWeight: weight ? `${weight} kg` : t.collectedWeight,
-            cashPaid: amount ? `৳ ${amount}` : t.cashPaid
+            actualWeight: weightStr || t.actualWeight || t.collectedWeight,
+            collectedWeight: weightStr || t.collectedWeight || t.actualWeight,
+            finalWeight: weightStr || t.finalWeight || t.actualWeight,
+            cashPaid: payoutStr || t.cashPaid || t.payout,
+            payout: payoutStr || t.payout || t.cashPaid,
+            collectorEarnings: newStatus === 'Completed' ? earned : t.collectorEarnings,
+            completedAt: newStatus === 'Completed' ? completionDate : t.completedAt,
+            notes: customNotes || t.notes
           };
         }
         return t;
-      })
-    );
+      });
+      try {
+        localStorage.setItem('sv_collector_pickups', JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      return updated;
+    });
+
+    // 2. Synchronize to userPickups
+    setUserPickups((prev) => {
+      const updated = prev.map((u) => {
+        if (u.id === taskId) {
+          return {
+            ...u,
+            status: newStatus,
+            actualWeight: weightStr || u.actualWeight,
+            earnedAmount: payoutStr || u.earnedAmount,
+            completedDate: newStatus === 'Completed' ? completionDate : u.completedDate,
+            notes: customNotes || u.notes
+          };
+        }
+        return u;
+      });
+      try {
+        localStorage.setItem('sv_user_pickups', JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      return updated;
+    });
+
+    // 3. Synchronize to sv_admin_pickups
+    try {
+      const adminPickups = JSON.parse(localStorage.getItem('sv_admin_pickups') || '[]');
+      const aIdx = adminPickups.findIndex((a) => a.id === taskId);
+      if (aIdx !== -1) {
+        adminPickups[aIdx].status = newStatus === 'In Progress' ? 'In Transit' : newStatus;
+        if (weightStr) adminPickups[aIdx].actualWeight = weightStr;
+        if (payoutStr) adminPickups[aIdx].paidPayout = payoutStr;
+        localStorage.setItem('sv_admin_pickups', JSON.stringify(adminPickups));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    // 4. If Completed, dynamically update the customer's recycled scrap and rewards in Admin Users & User Dashboard
+    if (newStatus === 'Completed') {
+      try {
+        // Resolve target pickup details from all available sources
+        const colPickups = JSON.parse(localStorage.getItem('sv_collector_pickups') || '[]');
+        const admPickups = JSON.parse(localStorage.getItem('sv_admin_pickups') || '[]');
+        const usrPickups = JSON.parse(localStorage.getItem('sv_user_pickups') || '[]');
+        const genBookings = JSON.parse(localStorage.getItem('scrapventure_bookings') || '[]');
+
+        const target =
+          colPickups.find((p) => p.id === taskId) ||
+          admPickups.find((p) => p.id === taskId) ||
+          usrPickups.find((p) => p.id === taskId) ||
+          genBookings.find((p) => p.id === taskId) ||
+          null;
+
+        const effectiveWeight =
+          numericWeight ||
+          (target?.actualWeight ? parseFloat(String(target.actualWeight).replace(/[^0-9.]/g, '')) : null) ||
+          (target?.finalWeight ? parseFloat(String(target.finalWeight).replace(/[^0-9.]/g, '')) : null) ||
+          (target?.estimatedWeight ? parseFloat(String(target.estimatedWeight).replace(/[^0-9.]/g, '')) : null) ||
+          (target?.weight ? parseFloat(String(target.weight).replace(/[^0-9.]/g, '')) : null) ||
+          20;
+
+        const rawPayout =
+          amount ||
+          target?.payout ||
+          target?.cashPaid ||
+          target?.paidPayout ||
+          target?.estPayout ||
+          target?.totalValue ||
+          (effectiveWeight * 25);
+
+        const effectivePayout =
+          typeof rawPayout === 'number'
+            ? rawPayout
+            : (parseFloat(String(rawPayout).replace(/[^0-9.]/g, '')) || 500);
+
+        const customerName =
+          target?.customerName ||
+          target?.customer?.fullName ||
+          target?.customer?.name ||
+          target?.customer ||
+          (currentUser?.role === 'user' ? currentUser.name : 'Recycler Customer');
+
+        const customerPhone =
+          target?.customerPhone ||
+          target?.phone ||
+          target?.customer?.phone ||
+          (currentUser?.role === 'user' ? currentUser.phone : '');
+
+        const customerEmail =
+          target?.customerEmail ||
+          target?.email ||
+          target?.customer?.email ||
+          (currentUser?.role === 'user' ? currentUser.email : '');
+
+        const targetUserId =
+          target?.userId ||
+          (currentUser?.role === 'user' ? currentUser.id : null) ||
+          (customerEmail ? `USR-${customerEmail.split('@')[0]}` : null);
+
+        const targetAddress =
+          target?.address ||
+          target?.thana ||
+          (currentUser?.role === 'user' ? currentUser.address : 'Dhaka');
+
+        // Dynamic Update of sv_admin_users_list (Admin Panel -> Users: Scrap Recycled & Rewards Paid)
+        let adminUsers = getStoredAdminUsers();
+        const cleanPhone = (customerPhone || '').replace(/[\s-]/g, '');
+        const cleanEmail = (customerEmail || '').trim().toLowerCase();
+
+        let matched = false;
+        adminUsers = adminUsers.map((u) => {
+          const uCleanPhone = (u.phone || '').replace(/[\s-]/g, '');
+          const uCleanEmail = (u.email || '').trim().toLowerCase();
+
+          const isMatch =
+            (targetUserId && u.id === targetUserId) ||
+            (cleanPhone && uCleanPhone && (uCleanPhone === cleanPhone || uCleanPhone.endsWith(cleanPhone) || cleanPhone.endsWith(uCleanPhone))) ||
+            (cleanEmail && uCleanEmail && uCleanEmail === cleanEmail) ||
+            (customerName && u.name && u.name.trim().toLowerCase() === customerName.trim().toLowerCase());
+
+          if (isMatch && !matched) {
+            matched = true;
+            const curKg = parseFloat(String(u.recycledKg || 0).replace(/[^0-9.]/g, '')) || 0;
+            const newKg = Math.round((curKg + effectiveWeight) * 10) / 10;
+
+            const curRewards = parseFloat(String(u.rewards || 0).replace(/[^0-9.]/g, '')) || 0;
+            const newRewards = Math.round(curRewards + effectivePayout);
+
+            return {
+              ...u,
+              recycledKg: newKg,
+              rewards: `৳${newRewards.toLocaleString('en-US')}`,
+              status: u.status === 'Suspended' ? 'Suspended' : 'Verified'
+            };
+          }
+          return u;
+        });
+
+        if (!matched) {
+          const generatedId = targetUserId || `USR-${Math.floor(1000 + Math.random() * 9000)}`;
+          const newEntry = {
+            id: generatedId,
+            name: customerName,
+            email: customerEmail || (cleanPhone ? `${cleanPhone}@scrapventure.xyz` : 'customer@scrapventure.xyz'),
+            phone: customerPhone || '01712-345678',
+            area: targetAddress,
+            role: 'Residential Recycler',
+            recycledKg: Math.round(effectiveWeight * 10) / 10,
+            rewards: `৳${Math.round(effectivePayout).toLocaleString('en-US')}`,
+            status: 'Verified'
+          };
+          adminUsers.unshift(newEntry);
+        }
+
+        saveStoredAdminUsers(adminUsers);
+
+        // Update logged in user if this pickup was theirs
+        setCurrentUser((prev) => {
+          if (!prev) return null;
+          const pCleanPhone = (prev.phone || '').replace(/[\s-]/g, '');
+          const pEmail = (prev.email || '').trim().toLowerCase();
+          const isSelf =
+            prev.id === targetUserId ||
+            (cleanPhone && pCleanPhone && (pCleanPhone === cleanPhone || pCleanPhone.endsWith(cleanPhone))) ||
+            (cleanEmail && pEmail && pEmail === cleanEmail);
+
+          if (isSelf) {
+            const updated = {
+              ...prev,
+              totalRecycledKg: (Number(prev.totalRecycledKg) || 0) + effectiveWeight,
+              rewardPoints: (Number(prev.rewardPoints) || 0) + Math.round(effectiveWeight * 2)
+            };
+            try {
+              localStorage.setItem('sv_auth_user', JSON.stringify(updated));
+            } catch (e) {}
+            return updated;
+          }
+          return prev;
+        });
+
+        // Also update sv_registered_users if this customer is registered
+        try {
+          const regUsers = JSON.parse(localStorage.getItem('sv_registered_users') || '[]');
+          const rIdx = regUsers.findIndex(
+            (u) =>
+              (targetUserId && u.id === targetUserId) ||
+              (cleanPhone && (u.phone || '').replace(/[\s-]/g, '') === cleanPhone) ||
+              (cleanEmail && (u.email || '').trim().toLowerCase() === cleanEmail)
+          );
+          if (rIdx !== -1) {
+            regUsers[rIdx].totalRecycledKg = (Number(regUsers[rIdx].totalRecycledKg) || 0) + effectiveWeight;
+            regUsers[rIdx].rewardPoints = (Number(regUsers[rIdx].rewardPoints) || 0) + Math.round(effectiveWeight * 2);
+            localStorage.setItem('sv_registered_users', JSON.stringify(regUsers));
+          }
+        } catch (e) {
+          console.error(e);
+        }
+
+        // Create transaction receipt in userSales for customer dashboard
+        const materialsSummary = Array.isArray(target?.materials)
+          ? target.materials.join(', ')
+          : (Array.isArray(target?.items) ? target.items.join(', ') : (target?.materials || target?.scrapItems || 'Collected Scrap Materials'));
+
+        const saleRecord = {
+          id: `TXN-${Date.now().toString().slice(-4)}`,
+          userId: targetUserId || (matched ? targetUserId : adminUsers[0]?.id) || 'USR-7821',
+          pickupId: taskId,
+          date: new Date().toISOString().slice(0, 10),
+          completedDate: completionDate,
+          category: 'Mixed Recyclables',
+          materialName: typeof materialsSummary === 'string' ? materialsSummary : 'Collected Scrap Materials',
+          collectedWeight: effectiveWeight,
+          weightUnit: 'kg',
+          pricePerKg: effectiveWeight > 0 ? Math.round(effectivePayout / effectiveWeight) : 25,
+          totalAmount: effectivePayout,
+          collectorName: currentUser?.name || target?.collectorName || target?.collector || 'Assigned Collector',
+          collectorBadge: currentUser?.badgeId || target?.collectorId || 'COL-104',
+          collectorPhone: currentUser?.phone || target?.collectorPhone || '01819-876543',
+          status: 'Verified',
+          paymentStatus: 'Cash / Digital Paid',
+          paymentMethod: 'Instant Handover',
+          address: targetAddress,
+          notes: customNotes || 'Verified digital scale weighing on site.'
+        };
+        addUserSale(saleRecord);
+
+      } catch (e) {
+        console.error('Error in pickup completion synchronization:', e);
+      }
+    }
+
+    window.dispatchEvent(new Event('sv_pickups_sync'));
+    window.dispatchEvent(new Event('sv_users_sync'));
+  };
+
+  // Collector reports an issue with an assignment (e.g. customer unavailable, wrong address)
+  const reportCollectorIssue = (taskId, issueCategory, issueNote) => {
+    setCollectorPickups((prev) => {
+      const updated = prev.map((t) => {
+        if (t.id === taskId) {
+          return {
+            ...t,
+            status: 'Issue Reported',
+            issue: {
+              category: issueCategory,
+              note: issueNote,
+              reportedAt: new Date().toISOString()
+            }
+          };
+        }
+        return t;
+      });
+      try {
+        localStorage.setItem('sv_collector_pickups', JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      return updated;
+    });
+
+    try {
+      const adminPickups = JSON.parse(localStorage.getItem('sv_admin_pickups') || '[]');
+      const aIdx = adminPickups.findIndex((a) => a.id === taskId);
+      if (aIdx !== -1) {
+        adminPickups[aIdx].status = 'Issue Reported';
+        adminPickups[aIdx].issue = { category: issueCategory, note: issueNote };
+        localStorage.setItem('sv_admin_pickups', JSON.stringify(adminPickups));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+    window.dispatchEvent(new Event('sv_pickups_sync'));
+    return { success: true };
   };
 
   // Logout
@@ -461,6 +1415,7 @@ export function AuthProvider({ children }) {
         isCollector: currentUser?.role === 'collector',
         userOrders,
         userPickups,
+        userSales,
         collectorPickups,
         collectorApplications,
         loginUser,
@@ -473,7 +1428,11 @@ export function AuthProvider({ children }) {
         approveCollectorApplication,
         updateUserSettings,
         changePassword,
+        addUserPickup,
+        addUserSale,
+        addUserOrder,
         updateCollectorTask,
+        reportCollectorIssue,
         logout
       }}
     >
