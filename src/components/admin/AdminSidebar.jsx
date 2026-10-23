@@ -13,6 +13,11 @@ import {
   CampaignsIcon,
   SettingsIcon,
   LogoutIcon,
+<<<<<<< HEAD
+=======
+  CollapseLeftIcon,
+  CollapseRightIcon,
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   CloseIcon,
 } from './AdminIcons.jsx';
 
@@ -96,6 +101,11 @@ export const ADMIN_NAV_ITEMS = [
 ];
 
 export default function AdminSidebar({
+<<<<<<< HEAD
+=======
+  collapsed = false,
+  onToggleCollapse,
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   mobileOpen = false,
   onCloseMobile,
 }) {
@@ -124,7 +134,11 @@ export default function AdminSidebar({
 
       {/* Main Sidebar */}
       <aside
+<<<<<<< HEAD
         className={`sv-admin-sidebar ${
+=======
+        className={`sv-admin-sidebar ${collapsed ? 'collapsed' : ''} ${
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
           mobileOpen ? 'mobile-open' : ''
         }`}
         aria-label="Admin Navigation"
@@ -144,11 +158,37 @@ export default function AdminSidebar({
             />
             <div className="sv-sidebar-brand-meta">
               <span className="sv-sidebar-brand-title">
+<<<<<<< HEAD
                 Admin Panel
               </span>
             </div>
           </Link>
 
+=======
+                Scrap Venture
+              </span>
+              <span className="sv-sidebar-brand-badge">Admin Panel</span>
+            </div>
+          </Link>
+
+          {/* Desktop Collapse Toggle */}
+          {onToggleCollapse && (
+            <button
+              type="button"
+              className="sv-sidebar-desktop-collapse-btn"
+              onClick={onToggleCollapse}
+              aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              {collapsed ? (
+                <CollapseRightIcon size={16} />
+              ) : (
+                <CollapseLeftIcon size={16} />
+              )}
+            </button>
+          )}
+
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
           {/* Mobile Close Button */}
           {onCloseMobile && (
             <button
@@ -186,7 +226,11 @@ export default function AdminSidebar({
                     onClick={handleNavClick}
                     role="menuitem"
                     aria-current={isActive ? 'page' : undefined}
+<<<<<<< HEAD
                     title={item.name}
+=======
+                    title={collapsed ? item.name : undefined}
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
                   >
                     <span className="sv-sidebar-item-icon">
                       <IconComponent size={19} />
@@ -218,7 +262,11 @@ export default function AdminSidebar({
               onClick={handleNavClick}
               role="menuitem"
               aria-current={location.pathname === '/admin/settings' ? 'page' : undefined}
+<<<<<<< HEAD
               title="Settings"
+=======
+              title={collapsed ? 'Settings' : undefined}
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
             >
               <span className="sv-sidebar-item-icon">
                 <SettingsIcon size={19} />
@@ -238,7 +286,11 @@ export default function AdminSidebar({
               className="sv-sidebar-item-btn logout-btn"
               onClick={handleLogout}
               role="menuitem"
+<<<<<<< HEAD
               title="Logout"
+=======
+              title={collapsed ? 'Logout' : undefined}
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
             >
               <span className="sv-sidebar-item-icon">
                 <LogoutIcon size={19} />

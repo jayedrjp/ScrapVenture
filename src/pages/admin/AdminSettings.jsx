@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { useAdminAuth } from '../../context/AdminAuthContext.jsx';
+<<<<<<< HEAD
 import { SettingsIcon, CheckCircleIcon } from '../../components/admin/AdminIcons.jsx';
+=======
+import { SettingsIcon } from '../../components/admin/AdminIcons.jsx';
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 
 export default function AdminSettings() {
   const { adminUser } = useAdminAuth();
@@ -38,6 +42,7 @@ export default function AdminSettings() {
             fontSize: '13.5px',
             fontWeight: 600,
             marginBottom: '20px',
+<<<<<<< HEAD
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
@@ -45,6 +50,11 @@ export default function AdminSettings() {
         >
           <CheckCircleIcon size={16} />
           <span>System settings and operational parameters saved successfully.</span>
+=======
+          }}
+        >
+          ✓ System settings and operational parameters saved successfully.
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
         </div>
       )}
 

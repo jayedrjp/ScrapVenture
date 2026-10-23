@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 export const leadersAndAdvisors = [
+=======
+const team = [
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   {
     id: 'founder-ceo',
     name: 'Motaleb Hossain Emon',
@@ -106,6 +110,7 @@ export const leadersAndAdvisors = [
   }
 ];
 
+<<<<<<< HEAD
 export const innovatorsAndCreators = [
   {
     id: 'fullstack-dev-sazzad',
@@ -125,4 +130,6 @@ export const innovatorsAndCreators = [
 ];
 
 const team = [...leadersAndAdvisors, ...innovatorsAndCreators];
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 export default team;

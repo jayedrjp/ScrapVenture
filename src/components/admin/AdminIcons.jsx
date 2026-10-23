@@ -181,6 +181,7 @@ export function ExternalLinkIcon({ size = 16, strokeWidth = 2, className = '' })
   );
 }
 
+<<<<<<< HEAD
 export function PhoneIcon({ size = 18, strokeWidth = 2, className = '' }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -327,3 +328,5 @@ export function ClipboardIcon({ size = 18, strokeWidth = 2, className = '' }) {
   );
 }
 
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957

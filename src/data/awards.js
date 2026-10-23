@@ -1,5 +1,6 @@
 const awards = [
   {
+<<<<<<< HEAD
     "img": "assets/awards/5.jpg",
     "title": "International Award — CIRDAP Innovation Challenge 2026",
     "date": "July 2026",
@@ -7,6 +8,8 @@ const awards = [
     "tag": "International Rural Development"
   },
   {
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
     "img": "assets/awards/1.jpg",
     "title": "Official Recycling Partner — University Activation Programme 2025",
     "date": "August 2025",
@@ -35,6 +38,16 @@ const awards = [
     "tag": "DEIED Project · BHTPA"
   },
   {
+<<<<<<< HEAD
+=======
+    "img": "assets/awards/5.jpg",
+    "title": "International Award — CIRDAP Innovation Challenge 2026",
+    "date": "July 2026",
+    "desc": "Won the International Award at the CIRDAP International Rural Development Innovation Challenge 2026, presented by Mirza Fakhrul Islam Alamgir.",
+    "tag": "International Rural Development"
+  },
+  {
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
     "img": "assets/awards/6.jpg",
     "title": "2nd Runner-up — Hult Prize UITS 2026",
     "date": "March 2026",

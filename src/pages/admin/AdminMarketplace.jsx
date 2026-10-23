@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { PRODUCTS, MARKETPLACE_CATEGORIES } from '../../data/marketplaceData.js';
+<<<<<<< HEAD
 import { MarketplaceIcon, StarIcon } from '../../components/admin/AdminIcons.jsx';
+=======
+import { MarketplaceIcon } from '../../components/admin/AdminIcons.jsx';
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 
 export default function AdminMarketplace() {
   const [products, setProducts] = useState(PRODUCTS);
@@ -165,9 +169,14 @@ export default function AdminMarketplace() {
                       />
                       <div>
                         <div style={{ fontWeight: 700, color: '#0f172a' }}>{prod.name}</div>
+<<<<<<< HEAD
                         <div style={{ fontSize: '11.5px', color: '#64748b', display: 'flex', alignItems: 'center', gap: '3px' }}>
                           <StarIcon size={12} fill="#f59e0b" className="text-amber-500" />
                           <span>{prod.rating} ({prod.reviewsCount} reviews)</span>
+=======
+                        <div style={{ fontSize: '11.5px', color: '#64748b' }}>
+                          ★ {prod.rating} ({prod.reviewsCount} reviews)
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
                         </div>
                       </div>
                     </div>

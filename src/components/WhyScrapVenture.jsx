@@ -7,6 +7,10 @@ import {
   ShieldCheckIcon,
   RecycleIcon,
   RealisticRecycleIcon,
+<<<<<<< HEAD
+=======
+  CheckCircleIcon,
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 } from './pickup/pickupIcons.jsx';
 
 const WHY_IMAGES = [
@@ -171,16 +175,39 @@ export default function WhyScrapVenture() {
                     key={point.num}
                     className={`why-stack-card ${point.themeClass}`}
                   >
+<<<<<<< HEAD
+=======
+                    {/* Top Glowing Color Accent Bar */}
+                    <div
+                      className="why-card-top-accent"
+                      style={{
+                        background: `linear-gradient(90deg, ${point.accentColor}, #22c55e)`,
+                      }}
+                    />
+
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
                     {/* Card Top Header */}
                     <div className="why-card-head">
                       <div className="why-card-pill-group">
                         <span
+<<<<<<< HEAD
                           className="why-card-num"
                           style={{ color: point.accentColor }}
                         >
                           {point.num}
                         </span>
                         <span className="why-card-tag-separator">•</span>
+=======
+                          className="why-card-num-badge"
+                          style={{
+                            background: point.badgeBg,
+                            color: point.accentColor,
+                            borderColor: point.accentColor,
+                          }}
+                        >
+                          {point.num}
+                        </span>
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
                         <span className="why-card-tag">{point.tag}</span>
                       </div>
 
@@ -201,6 +228,7 @@ export default function WhyScrapVenture() {
                       <p className="why-card-desc">{point.text}</p>
                     </div>
 
+<<<<<<< HEAD
                     {/* Card Highlights / Clean Dotted Points */}
                     <ul className="why-card-points">
                       {point.highlights.map((h, i) => (
@@ -213,6 +241,17 @@ export default function WhyScrapVenture() {
                         </li>
                       ))}
                     </ul>
+=======
+                    {/* Card Highlights */}
+                    <div className="why-card-highlights">
+                      {point.highlights.map((h, i) => (
+                        <div key={i} className="why-highlight-pill">
+                          <CheckCircleIcon size={16} color={point.accentColor} />
+                          <span>{h}</span>
+                        </div>
+                      ))}
+                    </div>
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
                   </div>
                 );
               })}

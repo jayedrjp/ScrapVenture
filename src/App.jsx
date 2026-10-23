@@ -26,6 +26,7 @@ import AdminAwards from './pages/admin/AdminAwards.jsx';
 import AdminCampaigns from './pages/admin/AdminCampaigns.jsx';
 import AdminSettings from './pages/admin/AdminSettings.jsx';
 
+<<<<<<< HEAD
 // User & Collector Auth System
 import { AuthProvider } from './context/AuthContext.jsx';
 import UserLogin from './pages/auth/UserLogin.jsx';
@@ -33,6 +34,8 @@ import CollectorLogin from './pages/auth/CollectorLogin.jsx';
 import UserDashboard from './pages/dashboard/UserDashboard.jsx';
 import CollectorDashboard from './pages/dashboard/CollectorDashboard.jsx';
 
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 export default function App() {
   const location = useLocation();
 
@@ -65,6 +68,7 @@ export default function App() {
   }, [location.pathname]);
 
   return (
+<<<<<<< HEAD
     <AuthProvider>
       <AdminAuthProvider>
         <Routes>
@@ -144,5 +148,60 @@ export default function App() {
         </Routes>
       </AdminAuthProvider>
     </AuthProvider>
+=======
+    <AdminAuthProvider>
+      <Routes>
+        {/* Public Website Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/index.html" element={<Home />} />
+        <Route path="/awards" element={<Awards />} />
+        <Route path="/awards.html" element={<Awards />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/team.html" element={<Team />} />
+        <Route path="/our-team" element={<Team />} />
+        <Route path="/marketplace" element={<Marketplace />} />
+        <Route path="/marketplace.html" element={<Marketplace />} />
+        <Route path="/book-pickup" element={<BookPickup />} />
+        <Route path="/book-pickup.html" element={<BookPickup />} />
+        <Route path="/become-a-collector" element={<CollectorRegistration />} />
+        <Route path="/become-a-collector.html" element={<CollectorRegistration />} />
+        <Route path="/collector" element={<CollectorRegistration />} />
+        <Route path="/collector.html" element={<CollectorRegistration />} />
+        <Route path="/become-collector" element={<CollectorRegistration />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/blog.html" element={<Blog />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact.html" element={<Contact />} />
+        <Route path="/contact-us" element={<Contact />} />
+
+        {/* Admin Login Portal */}
+        <Route path="/admin" element={<AdminLogin />} />
+
+        {/* Authenticated Admin Dashboard & Operations */}
+        <Route
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/orders" element={<AdminOrders />} />
+          <Route path="/admin/marketplace" element={<AdminMarketplace />} />
+          <Route path="/admin/scrap-pickup" element={<AdminScrapPickup />} />
+          <Route path="/admin/employees-collectors" element={<AdminEmployeesCollectors />} />
+          <Route path="/admin/collectors" element={<Navigate to="/admin/employees-collectors" replace />} />
+          <Route path="/admin/team-members" element={<AdminTeamMembers />} />
+          <Route path="/admin/team" element={<Navigate to="/admin/team-members" replace />} />
+          <Route path="/admin/blogs" element={<AdminBlogs />} />
+          <Route path="/admin/blog" element={<Navigate to="/admin/blogs" replace />} />
+          <Route path="/admin/awards" element={<AdminAwards />} />
+          <Route path="/admin/campaigns" element={<AdminCampaigns />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
+        </Route>
+      </Routes>
+    </AdminAuthProvider>
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   );
 }

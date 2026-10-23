@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowIcon, DownloadIcon, UserIcon, ChevronDownIcon, TruckIcon } from './icons.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
+=======
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowIcon, DownloadIcon } from './icons.jsx';
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 
 const HOME_LINKS = [
   ['#top', 'Home'],
@@ -135,6 +141,7 @@ const VARIANTS = {
 export default function Navbar({ variant, scrolled }) {
   const v = VARIANTS[variant] || VARIANTS.home;
   const [open, setOpen] = useState(false);
+<<<<<<< HEAD
   const [isLoginDropdownOpen, setIsLoginDropdownOpen] = useState(false);
   const loginDropdownRef = useRef(null);
   const { currentUser, isLoggedIn, isCollector } = useAuth();
@@ -159,6 +166,10 @@ export default function Navbar({ variant, scrolled }) {
     };
   }, [isLoginDropdownOpen]);
 
+=======
+  const closeMenu = () => setOpen(false);
+
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   return (
     <>
       <header className={v.headerClass + (scrolled ? ' scrolled' : '')} id="siteNav">
@@ -200,6 +211,7 @@ export default function Navbar({ variant, scrolled }) {
               <DownloadIcon size={16} />
               <span>Download App</span>
             </a>
+<<<<<<< HEAD
 
             {isLoggedIn ? (
               <Link
@@ -251,6 +263,14 @@ export default function Navbar({ variant, scrolled }) {
               </div>
             )}
 
+=======
+            <Link
+              to="/book-pickup"
+              className="btn btn-solid"
+            >
+              Book a Pickup <ArrowIcon />
+            </Link>
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
             <button
               className={'burger' + (open ? ' open' : '')}
               id="burgerBtn"
@@ -303,6 +323,7 @@ export default function Navbar({ variant, scrolled }) {
           <DownloadIcon size={18} />
           <span>Download App</span>
         </a>
+<<<<<<< HEAD
 
         {isLoggedIn ? (
           <Link
@@ -334,6 +355,15 @@ export default function Navbar({ variant, scrolled }) {
             </Link>
           </div>
         )}
+=======
+        <Link
+          to="/book-pickup"
+          className="btn btn-solid"
+          onClick={closeMenu}
+        >
+          Book a Pickup →
+        </Link>
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
       </div>
     </>
   );

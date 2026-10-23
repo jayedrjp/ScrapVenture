@@ -1,7 +1,11 @@
 import { useState, useId } from 'react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { ArrowIcon, EyeIcon, EyeOffIcon } from './icons.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
+=======
+import { ArrowIcon } from './icons.jsx';
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 import {
   BANGLADESH_DIVISIONS,
   BANGLADESH_DISTRICTS,
@@ -10,7 +14,10 @@ import {
 
 export default function CollectorForm() {
   const formId = useId();
+<<<<<<< HEAD
   const { submitCollectorApplication } = useAuth();
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 
   const [formData, setFormData] = useState({
     name: '',
@@ -23,6 +30,7 @@ export default function CollectorForm() {
     customThana: '',
     vehicle: '',
     experience: '1-2 Years',
+<<<<<<< HEAD
     password: '',
     confirmPassword: '',
     agreeTerms: true,
@@ -31,6 +39,11 @@ export default function CollectorForm() {
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
 
+=======
+    agreeTerms: true,
+  });
+
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedData, setSubmittedData] = useState(null);
@@ -123,6 +136,7 @@ export default function CollectorForm() {
       errs.thana = 'Please specify your thana / police station';
     }
 
+<<<<<<< HEAD
     // Password
     if (!formData.password) {
       errs.password = 'Password is required / পাসওয়ার্ড দিতে হবে';
@@ -137,6 +151,8 @@ export default function CollectorForm() {
       errs.confirmPassword = 'Passwords do not match / পাসওয়ার্ড দুটি মেলেনি';
     }
 
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
     // Terms
     if (!formData.agreeTerms) {
       errs.agreeTerms = 'You must accept the terms to apply';
@@ -158,6 +174,7 @@ export default function CollectorForm() {
 
     setIsSubmitting(true);
 
+<<<<<<< HEAD
     // Save application to AuthContext (connected to Admin review & Collector Login)
     setTimeout(() => {
       setIsSubmitting(false);
@@ -172,6 +189,14 @@ export default function CollectorForm() {
 
       const appRef = res?.application?.id || ('SV-COL-' + Math.floor(10000 + Math.random() * 90000));
 
+=======
+    // Simulate network API submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      const appRef = 'SV-COL-' + Math.floor(10000 + Math.random() * 90000);
+      const finalThana =
+        formData.thana === 'Other' ? formData.customThana.trim() : formData.thana;
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
       setSubmittedData({
         ...formData,
         finalThana,
@@ -199,8 +224,11 @@ export default function CollectorForm() {
       customThana: '',
       vehicle: '',
       experience: '1-2 Years',
+<<<<<<< HEAD
       password: '',
       confirmPassword: '',
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
       agreeTerms: true,
     });
     setErrors({});
@@ -218,11 +246,19 @@ export default function CollectorForm() {
         </div>
 
         <div className="collector-success-header">
+<<<<<<< HEAD
           <span className="collector-tag">Application Submitted &amp; Pending Admin Review</span>
           <h2 className="collector-success-title">Application Submitted Successfully!</h2>
           <p className="collector-success-desc">
             Your collector partner application has been submitted to the ScrapVenture Admin Panel for verification.
             Once approved by the Admin, you will be able to log in to the Collector Portal using your registered phone and password.
+=======
+          <span className="collector-tag">Application Submitted</span>
+          <h2 className="collector-success-title">Welcome to the ScrapVenture Fleet!</h2>
+          <p className="collector-success-desc">
+            Your collector registration has been successfully received. Our regional field coordinator for{' '}
+            <strong>{submittedData.finalThana}, {submittedData.district}</strong> will review your details and reach out within 24–48 hours.
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
           </p>
         </div>
 
@@ -263,11 +299,19 @@ export default function CollectorForm() {
             </div>
             <div className="collector-summary-item">
               <span className="lbl">Transport Type</span>
+<<<<<<< HEAD
               <span className="val">{submittedData.vehicle || 'Van / Three-Wheeler'}</span>
             </div>
             <div className="collector-summary-item">
               <span className="lbl">Review Status</span>
               <span className="val" style={{ color: '#d97706', fontWeight: 800 }}>Pending Admin Approval</span>
+=======
+              <span className="val">{submittedData.vehicle}</span>
+            </div>
+            <div className="collector-summary-item">
+              <span className="lbl">Experience Level</span>
+              <span className="val">{submittedData.experience}</span>
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
             </div>
           </div>
         </div>
@@ -278,7 +322,11 @@ export default function CollectorForm() {
             <li>
               <span className="step-num">1</span>
               <div>
+<<<<<<< HEAD
                 <strong>Admin Review &amp; Phone Verification:</strong> Our regional operations hub will review your NID credentials and contact you on <strong>{submittedData.phone}</strong>.
+=======
+                <strong>Phone Verification:</strong> Our local hub officer will contact you on <strong>{submittedData.phone}</strong> to confirm your availability.
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
               </div>
             </li>
             <li>
@@ -290,18 +338,27 @@ export default function CollectorForm() {
             <li>
               <span className="step-num">3</span>
               <div>
+<<<<<<< HEAD
                 <strong>Sign In to Collector Portal:</strong> Once approved, sign in with your phone and password to start receiving collection tasks!
+=======
+                <strong>Start Earning:</strong> Activate the ScrapVenture Partner App and begin collecting high-value recyclables in your neighborhood!
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
               </div>
             </li>
           </ol>
         </div>
 
         <div className="collector-success-actions">
+<<<<<<< HEAD
           <Link to="/collector/login" className="btn btn-solid">
             Go to Collector Login <ArrowIcon />
           </Link>
           <Link to="/" className="btn btn-outline" style={{ background: '#ffffff', color: '#16a34a', borderColor: '#16a34a' }}>
             Return to Homepage
+=======
+          <Link to="/" className="btn btn-solid">
+            Return to Homepage <ArrowIcon />
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
           </Link>
           <button type="button" onClick={handleReset} className="btn btn-ghost-dark">
             Register Another Collector
@@ -581,6 +638,7 @@ export default function CollectorForm() {
           </div>
         </div>
 
+<<<<<<< HEAD
         {/* Section 4: Set Account Password */}
         <div className="form-section">
           <div className="form-section-title">
@@ -655,6 +713,8 @@ export default function CollectorForm() {
           </div>
         </div>
 
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
         {/* Agreement Checkbox */}
         <div className="form-agreement">
           <label className="checkbox-label">

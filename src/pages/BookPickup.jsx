@@ -516,6 +516,7 @@ export default function BookPickup() {
         const stored = JSON.parse(localStorage.getItem('scrapventure_bookings') || '[]');
         const updated = [bookingPayload, ...stored];
         localStorage.setItem('scrapventure_bookings', JSON.stringify(updated));
+<<<<<<< HEAD
 
         // Sync with customer dashboard pickups
         const authUser = JSON.parse(localStorage.getItem('sv_auth_user') || 'null');
@@ -542,6 +543,8 @@ export default function BookPickup() {
           notes: instructions || '',
         };
         localStorage.setItem('sv_user_pickups', JSON.stringify([dashboardPickup, ...userPickupsStored]));
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
       } catch {
         // fallback
       }

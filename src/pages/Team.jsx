@@ -1,6 +1,10 @@
 import SiteLayout from '../components/SiteLayout.jsx';
 import Reveal from '../components/Reveal.jsx';
+<<<<<<< HEAD
 import { leadersAndAdvisors, innovatorsAndCreators } from '../data/team.js';
+=======
+import team from '../data/team.js';
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 import {
   FacebookIcon,
   TwitterIcon,
@@ -40,7 +44,11 @@ function TeamSocialDock({ socials = {}, side = 'right' }) {
               if (url === '#') e.preventDefault();
             }}
           >
+<<<<<<< HEAD
             <Icon size={14} />
+=======
+            <Icon size={15} />
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
           </a>
         );
       })}
@@ -50,6 +58,7 @@ function TeamSocialDock({ socials = {}, side = 'right' }) {
 
 export default function Team() {
   return (
+<<<<<<< HEAD
     <SiteLayout variant="team" main mainClassName="awards-page-main">
       {/* Ambient Eco Decorative Elements in Background - Identical to Awards & Blog */}
       <div className="awards-bg-deco" aria-hidden="true">
@@ -57,29 +66,54 @@ export default function Team() {
           src="/assets/images/recycle.png"
           alt=""
           className="awards-bg-watermark awards-watermark-1"
+=======
+    <SiteLayout variant="team" main>
+      {/* Ambient Eco Decorative Elements in Background */}
+      <div className="team-bg-deco" aria-hidden="true">
+        <img
+          src="/assets/images/recycle.png"
+          alt=""
+          className="team-bg-watermark team-watermark-tl"
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
           loading="lazy"
         />
         <img
           src="/assets/images/recycle.png"
           alt=""
+<<<<<<< HEAD
           className="awards-bg-watermark awards-watermark-2"
+=======
+          className="team-bg-watermark team-watermark-tr"
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
           loading="lazy"
         />
         <img
           src="/assets/images/recycle.png"
           alt=""
+<<<<<<< HEAD
           className="awards-bg-watermark awards-watermark-3"
+=======
+          className="team-bg-watermark team-watermark-bl"
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
           loading="lazy"
         />
         <img
           src="/assets/images/recycle.png"
           alt=""
+<<<<<<< HEAD
           className="awards-bg-watermark awards-watermark-4"
           loading="lazy"
         />
         <div className="awards-glow-orb awards-glow-orb--1"></div>
         <div className="awards-glow-orb awards-glow-orb--2"></div>
         <div className="awards-glow-orb awards-glow-orb--3"></div>
+=======
+          className="team-bg-watermark team-watermark-br"
+          loading="lazy"
+        />
+        <div className="team-glow-orb team-glow-orb--1"></div>
+        <div className="team-glow-orb team-glow-orb--2"></div>
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
       </div>
 
       {/* Team Page Hero Header */}
@@ -94,11 +128,19 @@ export default function Team() {
         </Reveal>
       </section>
 
+<<<<<<< HEAD
       {/* Main Team Roster Grid (Leaders & Advisors) */}
       <section className="team-content-section">
         <div className="wrap">
           <div className="team-roster-grid">
             {leadersAndAdvisors.map((member) => (
+=======
+      {/* Main Team Roster Grid */}
+      <section className="team-content-section">
+        <div className="wrap">
+          <div className="team-roster-grid">
+            {team.map((member) => (
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
               <Reveal as="article" className="team-card" key={member.id}>
                 {/* Photo on Top with Glaze Sheen & Animated Pop-Out Social Dock */}
                 <div className="team-card__media">
@@ -109,7 +151,11 @@ export default function Team() {
                     className="team-card__img"
                   />
 
+<<<<<<< HEAD
                   {/* Animated Social Links Dock */}
+=======
+                  {/* Animated Social Links Dock (Slides out from Left or Right on Hover) */}
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
                   <TeamSocialDock
                     socials={member.socials}
                     side={member.socialSide || 'right'}
@@ -127,6 +173,7 @@ export default function Team() {
           </div>
         </div>
       </section>
+<<<<<<< HEAD
 
       {/* The Innovators & Creators Section */}
       <section className="team-innovators-section">
@@ -167,6 +214,8 @@ export default function Team() {
           </div>
         </div>
       </section>
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
     </SiteLayout>
   );
 }

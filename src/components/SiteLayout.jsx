@@ -7,7 +7,11 @@ import Footer from './Footer.jsx';
 export default function SiteLayout({ variant, main = false, mainClass, mainClassName, children }) {
   const scrolled = useSiteScroll();
   const cls = mainClass || mainClassName || (
+<<<<<<< HEAD
     variant === 'team' ? 'awards-page-main' : 
+=======
+    variant === 'team' ? 'team-page-main' : 
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
     (variant === 'collector' ? 'collector-page-main' : 
     (variant === 'blog' ? 'blog-page-main' : 
     (variant === 'contact' ? 'contact-page-main' : 'awards-page-main')))

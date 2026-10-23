@@ -158,6 +158,7 @@ export function UserIcon({ size = 18, strokeWidth = '2', className = '', style, 
   );
 }
 
+<<<<<<< HEAD
 export function ChevronDownIcon({ size = 16, strokeWidth = '2', className = '', style, ...props }) {
   return (
     <svg className={className} style={style} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -196,3 +197,5 @@ export function EyeOffIcon({ size = 18, strokeWidth = '2', className = '', style
     </svg>
   );
 }
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957

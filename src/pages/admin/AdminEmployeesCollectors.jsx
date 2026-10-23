@@ -1,5 +1,9 @@
 import { useState } from 'react';
+<<<<<<< HEAD
 import { EmployeesCollectorsIcon, StarIcon } from '../../components/admin/AdminIcons.jsx';
+=======
+import { EmployeesCollectorsIcon } from '../../components/admin/AdminIcons.jsx';
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 
 const INITIAL_APPLICATIONS = [
   {
@@ -53,7 +57,11 @@ const INITIAL_REGISTERED = [
     scaleId: 'DIGI-SC-081',
     completedPickups: 148,
     payout: '৳32,400',
+<<<<<<< HEAD
     rating: '4.9',
+=======
+    rating: '4.9 ★',
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
     status: 'On Duty',
   },
   {
@@ -65,7 +73,11 @@ const INITIAL_REGISTERED = [
     scaleId: 'DIGI-SC-094',
     completedPickups: 112,
     payout: '৳24,500',
+<<<<<<< HEAD
     rating: '4.8',
+=======
+    rating: '4.8 ★',
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
     status: 'On Duty',
   },
   {
@@ -77,7 +89,11 @@ const INITIAL_REGISTERED = [
     scaleId: 'DIGI-SC-102',
     completedPickups: 94,
     payout: '৳21,100',
+<<<<<<< HEAD
     rating: '4.9',
+=======
+    rating: '4.9 ★',
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
     status: 'Available',
   },
   {
@@ -89,7 +105,11 @@ const INITIAL_REGISTERED = [
     scaleId: 'DIGI-SC-073',
     completedPickups: 82,
     payout: '৳17,800',
+<<<<<<< HEAD
     rating: '4.7',
+=======
+    rating: '4.7 ★',
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
     status: 'Available',
   },
 ];
@@ -110,7 +130,11 @@ export default function AdminEmployeesCollectors() {
       scaleId: `DIGI-SC-${110 + registered.length}`,
       completedPickups: 0,
       payout: '৳0',
+<<<<<<< HEAD
       rating: '5.0 (New)',
+=======
+      rating: '5.0 ★ (New)',
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
       status: 'Available',
     };
 
@@ -293,12 +317,16 @@ export default function AdminEmployeesCollectors() {
                     </td>
                     <td style={{ fontWeight: 700 }}>{col.completedPickups} Doorsteps</td>
                     <td style={{ fontWeight: 700, color: '#16a34a' }}>{col.payout}</td>
+<<<<<<< HEAD
                     <td style={{ fontWeight: 700, color: '#f59e0b' }}>
                       <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                         <StarIcon size={13} fill="#f59e0b" />
                         <span>{col.rating}</span>
                       </span>
                     </td>
+=======
+                    <td style={{ fontWeight: 700, color: '#f59e0b' }}>{col.rating}</td>
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
                     <td>
                       <span className={`sv-badge ${col.status === 'On Duty' ? 'orange' : 'green'}`}>
                         {col.status}

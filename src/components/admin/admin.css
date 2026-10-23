@@ -13,6 +13,7 @@
   --sv-admin-muted: #64748b;
   --sv-admin-light: #94a3b8;
 
+<<<<<<< HEAD
   /* Green sidebar tokens */
   --sv-sidebar-bg: #269C26;
   --sv-sidebar-surface: #228B22;
@@ -20,6 +21,15 @@
   --sv-sidebar-hover-bg: rgba(255, 255, 255, 0.12);
   --sv-sidebar-text: rgba(255, 255, 255, 0.85);
   --sv-sidebar-text-hover: #ffffff;
+=======
+  /* Dark neutral sidebar tokens */
+  --sv-sidebar-bg: #111827;
+  --sv-sidebar-surface: #1f2937;
+  --sv-sidebar-border: #1f2937;
+  --sv-sidebar-hover-bg: rgba(255, 255, 255, 0.06);
+  --sv-sidebar-text: #94a3b8;
+  --sv-sidebar-text-hover: #f8fafc;
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 
   /* Scrap Venture Orange Accent */
   --sv-accent-orange: #f97316;
@@ -34,6 +44,10 @@
 
   /* Dimensions */
   --sv-sidebar-width-expanded: 260px;
+<<<<<<< HEAD
+=======
+  --sv-sidebar-width-collapsed: 74px;
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   --sv-header-height: 64px;
 }
 
@@ -69,6 +83,12 @@
   user-select: none;
 }
 
+<<<<<<< HEAD
+=======
+.sv-admin-sidebar.collapsed {
+  width: var(--sv-sidebar-width-collapsed);
+}
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 
 /* Brand header */
 .sv-sidebar-brand-header {
@@ -116,9 +136,55 @@
 }
 
 .sv-sidebar-brand-badge {
+<<<<<<< HEAD
   display: none;
 }
 
+=======
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sv-accent-orange);
+  background: var(--sv-accent-orange-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: 1px;
+}
+
+.sv-sidebar-desktop-collapse-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--sv-sidebar-text);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.sv-sidebar-desktop-collapse-btn:hover {
+  background: var(--sv-sidebar-hover-bg);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.sv-admin-sidebar.collapsed .sv-sidebar-brand-meta {
+  display: none;
+}
+
+.sv-admin-sidebar.collapsed .sv-sidebar-brand-header {
+  justify-content: center;
+  padding: 0;
+}
+
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 /* Sidebar Navigation Items */
 .sv-sidebar-nav-container {
   flex: 1;
@@ -176,14 +242,23 @@
 
 .sv-sidebar-item-link:focus-visible,
 .sv-sidebar-item-btn:focus-visible {
+<<<<<<< HEAD
   outline: 2px solid rgba(255, 255, 255, 0.5);
+=======
+  outline: 2px solid var(--sv-accent-orange);
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   outline-offset: -2px;
 }
 
 /* Active navigation item highlighting */
 .sv-sidebar-item-link.active {
+<<<<<<< HEAD
   color: #ffffff;
   background: rgba(0, 0, 0, 0.2);
+=======
+  color: var(--sv-accent-orange);
+  background: var(--sv-accent-orange-bg);
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   font-weight: 600;
 }
 
@@ -194,7 +269,11 @@
   top: 15%;
   bottom: 15%;
   width: 3.5px;
+<<<<<<< HEAD
   background: #ffffff;
+=======
+  background: var(--sv-accent-orange);
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   border-radius: 0 4px 4px 0;
 }
 
@@ -207,7 +286,11 @@
 }
 
 .sv-sidebar-item-link.active .sv-sidebar-item-icon {
+<<<<<<< HEAD
   color: #ffffff;
+=======
+  color: var(--sv-accent-orange);
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 }
 
 .sv-sidebar-item-label {
@@ -217,11 +300,58 @@
   flex: 1;
 }
 
+<<<<<<< HEAD
 /* Floating tooltip */
+=======
+/* Collapsed state styling */
+.sv-admin-sidebar.collapsed .sv-sidebar-item-link,
+.sv-admin-sidebar.collapsed .sv-sidebar-item-btn {
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.sv-admin-sidebar.collapsed .sv-sidebar-item-label {
+  display: none;
+}
+
+.sv-admin-sidebar.collapsed .sv-sidebar-item-link.active::before {
+  left: 2px;
+}
+
+/* Floating tooltip in collapsed state */
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 .sv-sidebar-tooltip {
   position: relative;
 }
 
+<<<<<<< HEAD
+=======
+.sv-admin-sidebar.collapsed .sv-sidebar-tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #0f172a;
+  color: #ffffff;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid #334155;
+  pointer-events: none;
+  animation: svTooltipIn 0.15s ease forwards;
+}
+
+@keyframes svTooltipIn {
+  from { opacity: 0; transform: translateY(-50%) translateX(-4px); }
+  to { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 /* Bottom / Divider & Footer */
 .sv-sidebar-divider {
   height: 1px;
@@ -229,6 +359,13 @@
   margin: 10px 14px;
 }
 
+<<<<<<< HEAD
+=======
+.sv-admin-sidebar.collapsed .sv-sidebar-divider {
+  margin: 10px 8px;
+}
+
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 .sv-sidebar-footer {
   padding: 4px 10px 14px;
   display: flex;
@@ -238,6 +375,7 @@
 }
 
 .sv-sidebar-item-btn.logout-btn {
+<<<<<<< HEAD
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -248,6 +386,18 @@
 
 .sv-sidebar-item-btn.logout-btn:hover .sv-sidebar-item-icon {
   color: #fca5a5;
+=======
+  color: #94a3b8;
+}
+
+.sv-sidebar-item-btn.logout-btn:hover {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.sv-sidebar-item-btn.logout-btn:hover .sv-sidebar-item-icon {
+  color: #f87171;
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 }
 
 /* ==========================================================================
@@ -292,6 +442,24 @@
     transform: translateX(0);
   }
 
+<<<<<<< HEAD
+=======
+  .sv-sidebar-desktop-collapse-btn {
+    display: none;
+  }
+
+  .sv-admin-sidebar.collapsed .sv-sidebar-brand-meta,
+  .sv-admin-sidebar .sv-sidebar-item-label {
+    display: block !important;
+  }
+
+  .sv-admin-sidebar.collapsed .sv-sidebar-item-link,
+  .sv-admin-sidebar.collapsed .sv-sidebar-item-btn {
+    justify-content: flex-start !important;
+    padding: 10px 14px !important;
+  }
+
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   .sv-sidebar-mobile-close-btn {
     display: flex !important;
   }

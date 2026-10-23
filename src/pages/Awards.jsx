@@ -52,13 +52,21 @@ export default function Awards() {
       <section className="awards-list-section">
         <div className="wrap">
           <div className="awards-list">
+<<<<<<< HEAD
             {awards.map((a) => (
+=======
+            {awards.map((a, idx) => (
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
               <Reveal
                 as="article"
                 className="award-item"
                 key={a.img}
               >
                 <div className="award-item__media">
+<<<<<<< HEAD
+=======
+                  <span className="award-card-tag">Milestone #{idx + 1}</span>
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
                   <img src={a.img} alt={a.title} loading="lazy" />
                 </div>
 
@@ -71,7 +79,11 @@ export default function Awards() {
                   <h2 className="award-item__title">{a.title}</h2>
                   <p className="award-item__desc">{a.desc}</p>
                   <div className="award-item__highlight">
+<<<<<<< HEAD
                     <span>Verified Achievement</span>
+=======
+                    <span>Verified Milestone Achievement</span>
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
                   </div>
                 </div>
               </Reveal>

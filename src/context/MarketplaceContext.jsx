@@ -159,6 +159,7 @@ export function MarketplaceProvider({ children }) {
     setActiveOrder(newOrder);
     setCart([]);
     setIsCheckoutOpen(false);
+<<<<<<< HEAD
 
     // Sync with customer dashboard orders
     try {
@@ -183,6 +184,8 @@ export function MarketplaceProvider({ children }) {
       // fallback
     }
 
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
     showToast(`Order #${orderId} confirmed successfully!`, 'success');
   };
 

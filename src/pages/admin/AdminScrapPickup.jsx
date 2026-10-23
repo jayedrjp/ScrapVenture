@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
+=======
+import { useState } from 'react';
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 import { ScrapPickupIcon } from '../../components/admin/AdminIcons.jsx';
 
 const COLLECTORS_LIST = [
@@ -8,7 +12,10 @@ const COLLECTORS_LIST = [
   'Jasim Uddin (E-Trike 02)',
   'Anwar Ali (Van-07)',
   'Rashedul Karim (E-Trike 05)',
+<<<<<<< HEAD
   'Rafiqul Islam (Van-08 / Collector #C-104)',
+=======
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
 ];
 
 const INITIAL_REQUESTS = [
@@ -80,6 +87,7 @@ const INITIAL_REQUESTS = [
 ];
 
 export default function AdminScrapPickup() {
+<<<<<<< HEAD
   const [requests, setRequests] = useState(() => {
     try {
       const saved = localStorage.getItem('sv_admin_pickups');
@@ -115,6 +123,12 @@ export default function AdminScrapPickup() {
     };
   }, []);
 
+=======
+  const [requests, setRequests] = useState(INITIAL_REQUESTS);
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [search, setSearch] = useState('');
+
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   const filtered = requests.filter((r) => {
     const matchesStatus = statusFilter === 'All' || r.status === statusFilter;
     const matchesSearch =
@@ -126,6 +140,7 @@ export default function AdminScrapPickup() {
   });
 
   const handleAssignCollector = (id, collectorName) => {
+<<<<<<< HEAD
     const newStatus = collectorName === 'Unassigned' ? 'Pending' : 'Assigned';
     const updated = requests.map((r) => {
       if (r.id === id) {
@@ -238,6 +253,26 @@ export default function AdminScrapPickup() {
     } catch (e) {
       console.error(e);
     }
+=======
+    setRequests((prev) =>
+      prev.map((r) => {
+        if (r.id === id) {
+          return {
+            ...r,
+            collector: collectorName,
+            status: collectorName === 'Unassigned' ? 'Pending' : 'Assigned',
+          };
+        }
+        return r;
+      })
+    );
+  };
+
+  const handleUpdateStatus = (id, newStatus) => {
+    setRequests((prev) =>
+      prev.map((r) => (r.id === id ? { ...r, status: newStatus } : r))
+    );
+>>>>>>> 3fbf89bad36747bac50ac0e7c8cd9af3b3f77957
   };
 
   return (
