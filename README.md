@@ -1,4 +1,4 @@
-# scrap_venture_website
+# scrap_venture_website.
 # Scrap Venture — Full Web Application Development Plan
 
 ## Project Goal & Strategic Overview
