@@ -1,0 +1,790 @@
+/* ==========================================================================
+   ScrapVenture Collector Dashboard Styles
+   Matches the Admin Panel visual design system: Green (#269C26) + White + Light Gray
+   ========================================================================== */
+
+/* Main layout wrapper overrides for Collector Portal */
+.sv-collector-dashboard {
+  background-color: var(--sv-admin-bg, #f8fafc);
+  min-height: 100vh;
+}
+
+/* Collector Profile Card inside the Green Sidebar */
+.sv-collector-sidebar-card {
+  margin: 12px 14px 6px;
+  padding: 11px 12px;
+  background: rgba(0, 0, 0, 0.16);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.sv-collector-sidebar-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #269C26;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 15px;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.sv-collector-sidebar-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sv-collector-sidebar-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sv-collector-sidebar-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sv-collector-sidebar-badge {
+  font-size: 11px;
+  color: #dcfce7;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+}
+
+.sv-collector-sidebar-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 5px #4ade80;
+}
+
+/* Sidebar Count Pill */
+.sv-sidebar-nav-pill {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* Green Primary Buttons */
+.sv-collector-dashboard .sv-btn-primary {
+  background: #269C26 !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 2px 6px rgba(38, 156, 38, 0.25) !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  transition: all 0.15s ease !important;
+  cursor: pointer;
+}
+
+.sv-collector-dashboard .sv-btn-primary:hover {
+  background: #1e831e !important;
+  box-shadow: 0 4px 10px rgba(38, 156, 38, 0.35) !important;
+}
+
+/* Notification Bell */
+.sv-notif-container {
+  position: relative;
+}
+
+.sv-notif-bell-btn {
+  background: #ffffff;
+  border: 1px solid var(--sv-admin-border, #e2e8f0);
+  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--sv-admin-text, #0f172a);
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.sv-notif-bell-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.sv-notif-count-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+}
+
+.sv-notif-dropdown {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  width: 330px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.sv-notif-dropdown-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+}
+
+.sv-notif-dropdown-header h4 {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sv-notif-clear-btn {
+  font-size: 11.5px;
+  color: #269C26;
+  background: none;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.sv-notif-clear-btn:hover {
+  text-decoration: underline;
+}
+
+.sv-notif-list {
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.sv-notif-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.sv-notif-item:hover {
+  background: #f8fafc;
+}
+
+.sv-notif-item.unread {
+  background: #f0fdf4;
+}
+
+.sv-notif-item-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sv-notif-item-msg {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.sv-notif-item-time {
+  font-size: 10.5px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* Compact Job-Status Summary Bar */
+.sv-job-status-summary-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sv-job-status-pill {
+  background: #ffffff;
+  border: 1px solid var(--sv-admin-border, #e2e8f0);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sv-job-status-pill:hover {
+  border-color: #269C26;
+  box-shadow: 0 4px 12px rgba(38, 156, 38, 0.1);
+  transform: translateY(-1px);
+}
+
+.sv-job-status-pill.active {
+  background: #f0fdf4;
+  border-color: #269C26;
+  box-shadow: 0 2px 8px rgba(38, 156, 38, 0.15);
+}
+
+.sv-job-status-pill-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.sv-job-status-pill-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--sv-admin-muted, #64748b);
+}
+
+.sv-job-status-pill-count {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--sv-admin-text, #0f172a);
+}
+
+.sv-job-status-pill-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Partner Route Welcome Banner */
+.sv-collector-welcome-banner {
+  background: linear-gradient(135deg, #15803d 0%, #269C26 50%, #166534 100%);
+  border-radius: 12px;
+  padding: 22px 24px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 14px rgba(38, 156, 38, 0.2);
+}
+
+.sv-collector-welcome-banner h2 {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  color: #ffffff;
+}
+
+.sv-collector-welcome-banner p {
+  margin: 0;
+  font-size: 13.5px;
+  color: #dcfce7;
+  line-height: 1.5;
+}
+
+.sv-banner-white-btn {
+  background: #ffffff;
+  color: #15803d;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sv-banner-white-btn:hover {
+  background: #f0fdf4;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Filter controls bar */
+.sv-orders-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.sv-status-pill-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sv-filter-pill-btn {
+  padding: 6px 13px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border: 1px solid var(--sv-admin-border, #e2e8f0);
+  background: #ffffff;
+  color: var(--sv-admin-muted, #64748b);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sv-filter-pill-btn:hover {
+  background: #f8fafc;
+  color: var(--sv-admin-text, #0f172a);
+}
+
+.sv-filter-pill-btn.active {
+  background: #269C26;
+  color: #ffffff;
+  border-color: #269C26;
+  box-shadow: 0 1px 4px rgba(38, 156, 38, 0.25);
+}
+
+/* ==========================================================================
+   Full-Width Horizontal Row Layout for Collector Pickup Orders
+   ========================================================================== */
+.sv-collector-orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sv-collector-order-row {
+  background: #ffffff;
+  border: 1px solid var(--sv-admin-border, #e2e8f0);
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: 190px 250px 1fr 105px auto;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.sv-collector-order-row:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Section 1: Order Identification */
+.sv-order-col-ident {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.sv-order-id-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sv-order-cust-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sv-order-cust-phone {
+  font-size: 11.5px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Section 2: Pickup details */
+.sv-order-col-pickup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  font-size: 12px;
+  color: #334155;
+}
+
+.sv-order-detail-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  line-height: 1.35;
+}
+
+.sv-order-address-text {
+  font-weight: 600;
+  color: #1e293b;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.sv-order-detail-subline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 11.5px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.sv-order-detail-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Section 3: Materials & instructions */
+.sv-order-col-materials {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.sv-material-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.sv-material-tag {
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+.sv-order-notes-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: #475569;
+  background: #f8fafc;
+  padding: 3px 8px;
+  border-radius: 5px;
+  border: 1px solid #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.sv-order-issue-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: #e11d48;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+/* Section 4: Status */
+.sv-order-col-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Section 5: Actions */
+.sv-order-col-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.sv-btn-action-sm {
+  padding: 6px 11px !important;
+  font-size: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease !important;
+  white-space: nowrap !important;
+}
+
+.sv-btn-call {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+}
+
+.sv-btn-call:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.sv-btn-map {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+}
+
+.sv-btn-map:hover {
+  background: #dbeafe;
+}
+
+.sv-btn-report-issue {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #e11d48;
+}
+
+.sv-btn-report-issue:hover {
+  background: #ffe4e6;
+}
+
+/* Active Route Stop Cards */
+.sv-route-stop-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  transition: all 0.15s ease;
+}
+
+.sv-route-stop-card:hover {
+  border-color: #269C26;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.sv-route-stop-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.sv-stop-number-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #269C26;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(38, 156, 38, 0.25);
+}
+
+.sv-route-stop-info h4 {
+  margin: 0 0 3px 0;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.sv-route-stop-info p {
+  margin: 0;
+  font-size: 12.5px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+/* Modals */
+.sv-collector-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+
+.sv-collector-modal-card {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  animation: modalScaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleIn {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.sv-collector-modal-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sv-collector-modal-header h3 {
+  margin: 0;
+  font-size: 16.5px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.sv-collector-modal-body {
+  padding: 22px;
+}
+
+.sv-collector-modal-footer {
+  padding: 14px 22px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Settings Forms */
+.sv-settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.sv-collector-readonly-field {
+  padding: 9px 12px;
+  border-radius: 6px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  font-size: 13px;
+  color: #475569;
+  font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .sv-collector-order-row {
+    grid-template-columns: 180px 220px 1fr 100px auto;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 992px) {
+  .sv-collector-order-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .sv-order-col-materials {
+    grid-column: span 2;
+  }
+  .sv-order-col-status {
+    justify-content: flex-start;
+  }
+  .sv-order-col-actions {
+    grid-column: span 2;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .sv-job-status-summary-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sv-route-stop-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sv-notif-dropdown {
+    width: 290px;
+    right: -50px;
+  }
+}
+
+@media (max-width: 640px) {
+  .sv-collector-order-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+  .sv-order-col-materials,
+  .sv-order-col-actions {
+    grid-column: span 1;
+  }
+}
